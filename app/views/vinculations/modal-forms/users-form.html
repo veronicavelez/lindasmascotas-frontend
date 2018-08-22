@@ -1,0 +1,211 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="usersModalForm">{{modalTittle}} de Usuarios del Sistema</h4>
+</div>
+<div class="modal-body">
+
+    <form name="frmUsers" ng-submit="save()" novalidate="novalidate">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Tipo de Documento
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un tipo de documento..." class="width100p" required
+                            ng-model="user.idTipoDocumento.idTipoDocumento">
+                            <option value=""></option>
+                            <option ng-repeat="doc in documents.data" value="{{doc.idTipoDocumento}}">{{doc.tipoDocumento}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Número de Documento
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7" ng-hide="isEdit">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese número de documento" required 
+                        ng-model="user.idPersonal" ng-only-numbers ng-blur="validateUser()">
+                    </div>
+                    <div class="col-sm-7" ng-hide="!isEdit">
+                        <label class="control-label">{{user.idPersonal}}</label>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Nombres
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese los nombres" required 
+                        ng-model="user.nombres" ng-uppercase/>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Primer Apellido
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el apellido" required 
+                        ng-model="user.papellido" ng-uppercase />
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Segundo Apellido
+                    </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el apellido" 
+                        ng-model="user.sapellido" ng-uppercase/>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Ocupación
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione una ocupación..." class="width100p" required 
+                        ng-model="user.idCargo.idCargo">
+                            <option value=""></option>
+                            <option ng-repeat="ocu in occupations.data" value="{{ocu.idCargo}}">{{ocu.nombreCargo}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">País de Origen
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un país..." class="width100p" required 
+                        ng-model="user.idCiudad.idDepartamento.idPais.idPais" ng-change="getDepartmentsByCountry()">
+                            <option value=""></option>
+                            <option ng-repeat="country in countries.data" value="{{country.idPais}}">{{country.nombrePais}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Departamento de Origen
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un departamento..." class="width100p" required 
+                        ng-model="user.idCiudad.idDepartamento.idDepartamento" ng-change="getCitiesByDepartments()"
+                        ng-disabled="user.idCiudad.idDepartamento.idPais.idPais == ''">
+                            <option value=""></option>
+                            <option ng-repeat="dpto in departments.data" value="{{dpto.idDepartamento}}">{{dpto.nombreDepartamento}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+        </div>
+
+        <div class="row">
+                <div class="col-sm-6 col-md-6 col-md-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-5 col-lg-5 control-label">Ciudad de Origen
+                            <span class="asterisk">*</span>
+                        </label>
+                        <div class="col-sm-7">
+                            <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione una ciudad..." class="width100p" required 
+                            ng-model="user.idCiudad.idCiudad" ng-disabled="user.idCiudad.idDepartamento.idDepartamento == ''">
+                                <option value=""></option>
+                                <option ng-repeat="city in cities.data" value="{{city.idCiudad}}">{{city.nombreCiudad}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- form-group -->
+                </div>
+                <!-- col-sm-6 -->
+    
+                <div class="col-sm-6 col-md-6 col-md-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-5 col-lg-5 control-label">Correo Electrónico
+                            <span class="asterisk">*</span>
+                        </label>
+                        <div class="col-sm-7">
+                            <input type="email" class="form-control input-sm" placeholder="Ingrese una dirección válida" required
+                            ng-model="user.email"/>
+                        </div>
+                    </div>
+                    <!-- form-group -->
+                </div>
+                <!-- col-sm-6 -->
+            </div>
+
+        <div class="row mb10 form-group">
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Estado
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <label ng-class="{'tpx-checkbox tpx-checkbox-success': user.estado, 'tpx-checkbox tpx-checkbox-danger': !user.estado}">
+                            <input type="checkbox" ng-model="user.estado">
+                            <span></span>
+                            Activo
+                        </label>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+        </div>
+        <!-- row -->
+
+        <div class="row">
+            <div class="text-center">
+                <button type="submit" class="btn btn-success btn-metro btn-xs mr5">
+                    <i class="fa fa-save"></i> Guardar</button>
+                <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()">
+                    <i class="fa fa-eraser"></i> Limpiar</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<!-- modal-body -->
+<div class="modal-footer">
+    <button class="btn btn-default btn-metro btn-xs" ng-click="cancel()">Cerrar</button>
+    <!-- <button class="btn btn-success btn-metro btn-xs" ng-click="ok()">Guardar</button> -->
+</div>

@@ -1,0 +1,212 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="storesModalForm">{{modalTittle}} de Tiendas para Auditar</h4>
+</div>
+<div class="modal-body">
+
+    <form name="frmStores" ng-submit="save()" novalidate="novalidate">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Pos Tienda
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7" ng-hide="isEdit">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el pos de la tienda" required 
+                        ng-model="store.posTienda" ng-uppercase ng-blur="validateStore()" ng-only-numbers>
+                    </div>
+                    <div class="col-sm-7" ng-hide="!isEdit">
+                        <label class="control-label">{{store.posTienda}}</label>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Nombre Tienda
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el nombre" required 
+                        ng-model="store.nombreTienda" ng-uppercase>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Dirección Tienda
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese la dirección" required 
+                        ng-model="store.direccion" ng-uppercase/>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Teléfono Tienda
+                    </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el teléfono" 
+                        ng-model="store.telefono" ng-only-numbers />
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Base Caja Menor                        
+                        <span class="asterisk">($) *</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el valor" 
+                        ng-model="store.baseCajaMenor" ng-only-numbers required/>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Marca Comercial
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione una marca..." class="width100p" required 
+                        ng-model="store.marcasEmpresa.marcasEmpresaPK.idMarca">
+                            <option value=""></option>
+                            <option ng-repeat="brand in brands.data" value="{{brand.idMarca}}">{{brand.nombreMarca}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">País de Origen
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un país..." class="width100p" required 
+                        ng-model="store.idCiudad.idDepartamento.idPais.idPais" ng-change="getDepartmentsByCountry()">
+                            <option value=""></option>
+                            <option ng-repeat="country in countries.data" value="{{country.idPais}}">{{country.nombrePais}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Departamento de Origen
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un departamento..." class="width100p" required 
+                        ng-model="store.idCiudad.idDepartamento.idDepartamento" ng-change="getCitiesByDepartments()"
+                        ng-disabled="store.idCiudad.idDepartamento.idPais.idPais == ''">
+                            <option value=""></option>
+                            <option ng-repeat="dpto in departments.data" value="{{dpto.idDepartamento}}">{{dpto.nombreDepartamento}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+        </div>
+
+        <div class="row">
+                <div class="col-sm-6 col-md-6 col-md-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-5 col-lg-5 control-label">Ciudad de Origen
+                            <span class="asterisk">*</span>
+                        </label>
+                        <div class="col-sm-7">
+                            <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione una ciudad..." class="width100p" required 
+                            ng-model="store.idCiudad.idCiudad" ng-change="getStoreManagersByCity()" 
+                            ng-disabled="store.idCiudad.idDepartamento.idDepartamento == ''">
+                                <option value=""></option>
+                                <option ng-repeat="city in cities.data" value="{{city.idCiudad}}">{{city.nombreCiudad}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- form-group -->
+                </div>
+                <!-- col-sm-6 -->
+    
+                <div class="col-sm-6 col-md-6 col-md-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-5 col-md-5 col-lg-5 control-label">Estado Tienda
+                            <span class="asterisk">*</span>
+                        </label>
+                        <div class="col-sm-7">
+                            <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un estado..." class="width100p" required 
+                            ng-model="store.idEstado.idEstadoTienda">
+                                <option value=""></option>
+                                <option ng-repeat="storeState in storeStates.data" value="{{storeState.idEstadoTienda}}">{{storeState.estadoTienda}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- form-group -->
+                </div>
+                <!-- col-sm-6 -->
+            </div>
+
+        <div class="row mb10 form-group">
+            <div class="col-sm-6 col-md-6 col-md-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-5 col-md-5 col-lg-5 control-label">Gerente Tienda
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un gerente..." class="width100p" required 
+                        ng-model="store.idGerente.idPersonal" ng-disabled="store.idCiudad.idCiudad == ''">
+                            <option value=""></option>
+                            <option ng-repeat="storeManager in storeManagers.data" value="{{storeManager.idPersonal}}">{{storeManager.nombres}} {{storeManager.papellido}} {{storeManager.sapellido}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+        </div>
+        <!-- row -->
+
+        <div class="row">
+            <div class="text-center">
+                <button type="submit" class="btn btn-success btn-metro btn-xs mr5">
+                    <i class="fa fa-save"></i> Guardar</button>
+                <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()">
+                    <i class="fa fa-eraser"></i> Limpiar</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<!-- modal-body -->
+<div class="modal-footer">
+    <button class="btn btn-default btn-metro btn-xs" ng-click="cancel()">Cerrar</button>
+    <!-- <button class="btn btn-success btn-metro btn-xs" ng-click="ok()">Guardar</button> -->
+</div>

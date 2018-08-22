@@ -1,0 +1,59 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="companyModalForm">{{modalTittle}} de Compañías</h4>
+</div>
+<div class="modal-body">
+
+    <form name="frmCompany" ng-submit="save()" novalidate="novalidate">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Nit
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-8" ng-hide="isEdit">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el nit" required 
+                        ng-model="compania.nitEmpresa" ng-only-numbers />
+                    </div>
+                    
+                    <div class="col-sm-8" ng-hide="!isEdit">
+                        <label class="control-label">{{compania.nitEmpresa}}</label>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+        </div>
+
+        <div class="row mb10">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Nombre Empresa
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el nombre de la empresa" required 
+                        ng-model="compania.nombreEmpresa" ng-uppercase />
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <!-- col-sm-6 -->
+        </div>
+        <!-- row -->
+
+        <div class="row">
+            <div class="col-sm-offset-4">
+                <button type="submit" class="btn btn-success btn-metro btn-xs mr5">
+                    <i class="fa fa-save"></i> Guardar</button>
+                <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()">
+                    <i class="fa fa-eraser"></i> Limpiar</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<!-- modal-body -->
+<div class="modal-footer">
+    <button class="btn btn-default btn-metro btn-xs" ng-click="cancel()">Cerrar</button>
+    <!-- <button class="btn btn-success btn-metro btn-xs" ng-click="ok()">Guardar</button> -->
+</div>

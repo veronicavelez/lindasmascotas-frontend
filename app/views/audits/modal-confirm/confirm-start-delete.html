@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="modalConfirmStart">{{title}}</h4>
+</div>
+<div class="modal-body">
+    <h5 class="text-justified">{{message}}</h5>
+    <h5 class="text-justified"><strong>{{description}}</strong></h5>
+    <form name="frmCancelCashBalance" ng-submit="ok()" novalidate="novalidate" ng-if="isCancel">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-3 col-md-3 col-lg-3 control-label">Motivo Cancelación
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9 col-md-9 col-lg-9">
+                    <textarea class="form-control" rows="3" ng-model="schVisit.observaciones" required></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-danger btn-metro btn-xs mr5 pull-right">
+                Cancelar Visita
+            </button>
+        </div>
+    </form>
+</div>
+<!-- modal-body -->
+<div class="modal-footer">
+    <button class="btn btn-default btn-metro btn-xs" ng-click="cancel()">{{!isCancel ? 'No' : 'Cerrar'}}</button>
+    <button class="btn btn-success btn-metro btn-xs" ng-click="ok()" ng-if="!isCancel">Si</button>
+</div>

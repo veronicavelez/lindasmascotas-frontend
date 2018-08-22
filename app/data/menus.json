@@ -1,0 +1,165 @@
+[
+    {
+        "state": "dashboard",
+        "icon": "home",
+        "label": "Inicio"
+    },
+    {
+        "state": "masters",
+        "icon": "cogs",
+        "label": "Maestros",
+        "children": [
+            {
+                "state": "masters.countries",
+                "label": "Países"
+            },
+            {
+                "state": "masters.departments",
+                "label": "Departamentos"
+            },
+            {
+                "state": "masters.cities",
+                "label": "Ciudades"
+            },
+            {
+                "state": "masters.documentTypes",
+                "label": "Tipos de Documento"
+            },
+            {
+                "state": "masters.occupations",
+                "label": "Cargos"
+            },
+            {
+                "state": "masters.neighborhoods",
+                "label": "Barrios"
+            },
+            {
+                "state": "masters.species",
+                "label": "Especies"
+            },
+            {
+                "state": "masters.races",
+                "label": "Razas"
+            },
+            {
+                "state": "masters.genders",
+                "label": "Géneros"
+            },
+            {
+                "state": "masters.profiles",
+                "label": "Perfiles"
+            },
+            {
+                "state": "masters.animalGenders",
+                "label": "Sexos"
+            },
+            {
+                "state": "masters.agreementTypes",
+                "label": "Tipos de Contrato"
+            },
+            {
+                "state": "masters.bloodTypes",
+                "label": "Tipos de Sangre"
+            },
+            {
+                "state": "masters.services",
+                "label": "Servicios"
+            },
+            {
+                "state": "masters.products",
+                "label": "Productos"
+            },
+            {
+                "state": "masters.vaccine",
+                "label": "Vacunas"
+            }
+        ]
+    },
+    {
+        "state": "vinculations",
+        "icon": "edit",
+        "label": "Vinculaciones",
+        "children": [
+            {
+                "state": "vinculations.companies",
+                "label": "Empresas"
+            },
+            {
+                "state": "vinculations.brandNames",
+                "label": "Marcas"
+            },
+            {
+                "state": "vinculations.users",
+                "label": "Usuarios del sistema"
+            },
+            {
+                "state": "vinculations.stores",
+                "label": "Tiendas"
+            }
+        ]
+    },
+    {
+        "state": "schedules",
+        "icon": "calendar",
+        "label": "Cronograma de visitas",
+        "children": [
+            {
+                "state": "schedules.activitySchedules",
+                "label": "Agendar Visita"
+            }
+        ]
+    },
+    {
+        "state": "audits",
+        "icon": "search",
+        "label": "Auditorías",
+        "children": [
+            {
+                "state": "audits.cashBalanceAudit",
+                "label": "Arqueo de Caja"
+            },
+            {
+                "state": "audits.pettyCashAudit",
+                "label": "Revisión de Caja Menor"
+            }
+            
+        ]
+    },
+    {
+        "state": "repayments",
+        "icon": "usd",
+        "label": "Reembolso de caja",
+        "children": [
+            {
+                "state": "repayments.pettyCash",
+                "label": "Caja Menor"
+            }
+        ]
+    },
+    {
+        "state": "supports",
+        "icon": "upload",
+        "label": "Carga de soportes",
+        "children": [
+            {
+                "state": "supports.auditSupport",
+                "label": "Soportes de Auditoría"
+            }
+        ]
+    },
+    {
+        "state": "reports",
+        "icon": "files-o",
+        "label": "Generar reportes",
+        "children": [
+            {
+                "state": "reports.auditSupportQuery",
+                "label": "Soportes de Auditoría"
+            },
+            {
+                "state": "reports.appointmentsFulfilled",
+                "label": "Visitas Cumplidas"
+            }
+        ]
+    }
+]

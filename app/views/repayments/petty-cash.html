@@ -1,0 +1,50 @@
+<div class="pageheader" page-header></div>
+
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <chain-panel title="Cajas Menores" description="Registro de Cajas Menores.">
+        <div class="row mb10">
+          <button class="btn btn-primary btn-metro btn-xs" ng-click="open('lg','static', 'create')">
+            <i class="fa fa-plus-circle"></i> Crear Nuevo</button>
+        </div>
+
+        <div class="table-responsive">
+          <div class="loaders text-center" ng-hide="pettyCashes.status">
+            <img alt src="images/loaders/loader15.gif">
+          </div>
+          <table class="table mb30" datatable="ng" dt-options="dtOptions">
+            <thead>
+              <tr>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Identificación</th>
+                <th class="col-xs-5 col-sm-3 col-md-3 col-lg-3">Nombres</th>
+                <th class="col-xs-5 col-sm-2 col-md-2 col-lg-2">Ocupación</th>
+                <th class="col-xs-5 col-sm-2 col-md-2 col-lg-2">Correo Electrónico</th>
+                <th class="col-xs-5 col-sm-2 col-md-2 col-lg-2">Lugar de Origen</th>
+                <th class="col-xs-1 col-sm-2 col-md-2 col-lg-2 text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="user in users.data">
+                <td class="text-center">{{user.idPersonal}}</td>
+                <td>{{user.nombres}} {{user.papellido}} {{user.sapellido}}</td>
+                <td>{{user.idCargo.nombreCargo}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.idCiudad.nombreCiudad}}</td>
+                <td class="table-action text-center">
+                  <button class="btn btn-warning btn-metro btn-xs" ng-click="open('lg','static', 'edit', user)">
+                    <i class="fa fa-pencil"></i> Editar</button>
+                  <button class="btn btn-danger btn-metro btn-xs" ng-click="delete('sm','static',user)">
+                    <i class="fa fa-trash-o"></i> Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- table-responsive -->
+
+      </chain-panel>
+    </div>
+    <!-- col-sm-6 -->
+  </div>
+  <!-- contentpanel -->

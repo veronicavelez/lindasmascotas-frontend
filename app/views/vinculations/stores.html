@@ -1,0 +1,48 @@
+<div class="pageheader" page-header></div>
+
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <chain-panel title="Tiendas para Auditar" description="Registro de Tiendas para Auditar.">
+        <button class="btn btn-primary btn-metro btn-xs mr5 mb10" ng-click="open('lg','static', 'create')">
+          <i class="fa fa-plus-circle"></i> Crear Nuevo</button>
+
+        <div class="table-responsive">
+          <div class="loaders text-center" ng-hide="stores.status">
+            <img alt src="images/loaders/loader15.gif">
+          </div>
+          <table class="table mb30" datatable="ng" dt-options="dtOptions">
+            <thead>
+              <tr>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Pos Tienda</th>
+                <th class="col-xs-1 col-sm-1 col-md-2 col-lg-2 text-center">Nombre</th>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Estado</th>
+                <th class="col-xs-1 col-sm-1 col-md-2 col-lg-2 text-center">Gerente</th>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Base Caja Menor</th>
+                <th class="col-xs-1 col-sm-2 col-md-2 col-lg-2 text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="store in stores.data">
+                <td class="text-center">{{store.posTienda}}</td>
+                <td>{{store.nombreTienda}}</td>
+                <td class="text-center">{{store.idEstado.estadoTienda}}</td>
+                <td>{{store.idGerente.nombres}} {{store.idGerente.papellido}} {{store.idGerente.sapellido}}</td>
+                <td class="text-left">{{store.baseCajaMenor | currency}}</td>
+                <td class="table-action text-center">
+                  <button class="btn btn-warning btn-metro btn-xs" ng-click="open('lg','static', 'edit', store)">
+                    <i class="fa fa-pencil"></i> Editar</button>
+                  <button class="btn btn-danger btn-metro btn-xs" ng-click="delete('sm','static',store)">
+                    <i class="fa fa-trash-o"></i> Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- table-responsive -->
+
+      </chain-panel>
+    </div>
+    <!-- col-sm-6 -->
+  </div>
+  <!-- contentpanel -->

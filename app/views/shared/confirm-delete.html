@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="modalConfirmDelete">Confirmación</h4>
+</div>
+<div class="modal-body">
+    <h5>{{message}} <strong>{{description}}</strong></h5>
+</div>
+<!-- modal-body -->
+<div class="modal-footer">
+    <button class="btn btn-default btn-metro btn-xs" ng-click="cancel()">No</button>
+    <button class="btn btn-success btn-metro btn-xs" ng-click="ok()">Si</button>
+</div>

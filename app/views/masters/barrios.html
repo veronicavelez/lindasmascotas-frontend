@@ -1,0 +1,42 @@
+<div class="pageheader" page-header></div>
+
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+      <chain-panel title="Barrios" description="Registro de barrios.">
+        <button class="btn btn-primary btn-metro btn-xs mr5 mb10" ng-click="open('','static','create')">
+          <i class="fa fa-plus-circle"></i> Crear Nuevo</button>
+
+        <div class="table-responsive">
+          <div class="loaders text-center" ng-hide="barrios.status">
+            <img alt src="images/loaders/loader15.gif">
+          </div>
+          <table class="table mb30" datatable="ng" dt-options="dtOptions">
+            <thead>
+              <tr>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Id</th>
+                <th class="col-xs-6 col-sm-3 col-md-3 col-lg-3">Barrio</th>
+                <th class="col-xs-1 col-sm-1 col-md-2 col-lg-2 text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="barrio in barrios.data">
+                <td class="text-center">{{barrio.idBarrio}}</td>
+                <td>{{barrio.nombreBarrio}}</td>
+                <td class="table-action text-center">
+                  <button class="btn btn-warning btn-metro btn-xs" ng-click="open('','static','edit',barrio)">
+                    <i class="fa fa-pencil"></i> Editar</button>
+                  <button class="btn btn-danger btn-metro btn-xs" ng-click="delete('sm','static',barrio)">
+                    <i class="fa fa-trash-o"></i> Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- table-responsive -->
+
+      </chain-panel>
+    </div>
+    <!-- col-sm-6 -->
+  </div>
+  <!-- contentpanel -->

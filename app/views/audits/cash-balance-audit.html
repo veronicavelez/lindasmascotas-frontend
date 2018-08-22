@@ -1,0 +1,342 @@
+<div class="pageheader" page-header></div>
+
+<div class="contentpanel">
+    <div class="row" ng-if="isVisible">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <chain-panel title="Visitas Programadas" description="">
+                <!-- <button class="btn btn-primary btn-metro btn-xs mr5 mb10" ng-click="open('','static', 'create')">
+          <i class="fa fa-plus-circle"></i> Crear Nuevo</button> -->
+
+                <div class="table-responsive">
+                    <div class="loaders text-center" ng-hide="scheduledVisits.status">
+                        <img alt src="images/loaders/loader15.gif">
+                    </div>
+                    <table class="table mb30" datatable="ng" dt-options="dtOptions">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Fecha</th>
+                                <th class="col-xs-6 col-sm-3 col-md-3 col-lg-3">Tienda</th>
+                                <th class="col-xs-6 col-sm-3 col-md-3 col-lg-3">Dirección</th>
+                                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Estado</th>
+                                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Paz y Salvo</th>
+                                <th class="col-xs-1 col-sm-1 col-md-2 col-lg-2 text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="schVisit in scheduledVisits.data">
+                                <td class="text-center">{{schVisit.fechaVisita}}</td>
+                                <td>{{schVisit.posTienda.nombreTienda}}</td>
+                                <td>{{schVisit.posTienda.direccion}}</td>
+                                <td>{{schVisit.idEstadoVisita.nombreEstadoVisita}}</td>
+                                <td class="text-center">
+                                    <div ng-if="schVisit.pazSalvo != null">
+                                        <span class="label label-success ng-scope"
+                                        ng-if="schVisit.pazSalvo">SI</span>
+                                        <span class="label label-danger ng-scope"
+                                        ng-if="!schVisit.pazSalvo">NO</span>
+                                    </div>
+                                </td>
+                                <td class="table-action text-center">
+                                    <button class="btn btn-success btn-metro btn-xs" ng-click="confirm('sm','static', schVisit)" 
+                                    ng-if="schVisit.fechaFinalArqueo == null">
+                                        <i class="fa fa-eye"></i> Iniciar</button>
+
+                                    <button class="btn btn-warning btn-metro btn-xs" ng-click="editCashBalance(schVisit)" 
+                                    ng-if="schVisit.fechaFinalArqueo != null && schVisit.observaciones == null">
+                                        <i class="fa fa-pencil"></i> Editar</button>
+
+                                    <button class="btn btn-danger btn-metro btn-xs" ng-click="cancelVisit('','static', schVisit)" 
+                                    ng-if="schVisit.fechaFinalArqueo == null">
+                                        <i class="fa fa-times"></i> Cancelar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- table-responsive -->
+            </chain-panel>
+        </div>
+    </div>
+    <!-- col-sm-12 -->
+
+    <div class="row" ng-if="!isVisible">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <chain-panel title="Arqueo de Caja" description="">
+                <!-- <button class="btn btn-primary btn-metro btn-xs mr5 mb10" ng-click="open('','static', 'create')">
+          <i class="fa fa-plus-circle"></i> Crear Nuevo</button> -->
+
+                <form name="frmCashBalance" ng-submit="save()" novalidate="novalidate" id="frmCashBalance" class="panel-wizard">
+                    <ul class="nav nav-justified nav-wizard">
+                        <li>
+                            <a href="#tab1-2" ng-click="onTabShow($event, 0)" data-toggle="tab">
+                                <strong>Paso 1:</strong> Información Básica</a>
+                        </li>
+                        <li>
+                            <a href="#tab2-2" ng-click="onTabShow($event, 1)" data-toggle="tab">
+                                <strong>Paso 2:</strong> Caja General</a>
+                        </li>
+                        <li>
+                            <a href="#tab3-2" ng-click="onTabShow($event, 2)" data-toggle="tab">
+                                <strong>Paso 3:</strong> Caja Menor</a>
+                        </li>
+                    </ul>
+
+                    <div class="progress progress-xs">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <div class="tab-content">
+                        <div class="tab-pane" id="tab1-2">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-lg-4 control-label">Código de visita</label>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <label class="control-label">{{schedule.idCronograma}}</label>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <!-- col-sm-6 -->
+
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-lg-4 control-label">Fecha de la visita</label>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <label class="control-label">{{schedule.fechaVisita}}</label>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <!-- col-sm-6 -->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-lg-4 control-label">Fecha inicio arqueo</label>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <label class="control-label">{{schedule.fechaInicioArqueo}}</label>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <!-- col-sm-6 -->
+
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-lg-4 control-label">Fecha fin arqueo</label>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <label class="control-label">{{schedule.fechaFinalArqueo}}</label>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <!-- col-sm-6 -->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-lg-4 control-label">Identificación auditor</label>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <label class="control-label">{{schedule.idAuditor.idPersonal}}</label>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <!-- col-sm-6 -->
+
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-lg-4 control-label">Auditor</label>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <label class="control-label">{{schedule.idAuditor.nombres}} {{schedule.idAuditor.papellido}} {{schedule.idAuditor.sapellido}}</label>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <!-- col-sm-6 -->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-lg-4 control-label">Pos</label>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <label class="control-label">{{schedule.posTienda.posTienda}}</label>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <!-- col-sm-6 -->
+
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-lg-4 control-label">Tienda</label>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <label class="control-label">{{schedule.posTienda.nombreTienda}}</label>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <!-- col-sm-6 -->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-lg-4 control-label">Gerente tienda</label>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <label class="control-label">{{schedule.posTienda.idGerente.nombres}} {{schedule.posTienda.idGerente.papellido}} {{schedule.posTienda.idGerente.sapellido}}</label>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <!-- col-sm-6 -->
+
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-lg-4 control-label">Paz y Salvo</label>
+                                        <div class="col-sm-8 col-md-8 col-lg-8">
+                                            <label ng-class="{'tpx-checkbox tpx-checkbox-success': schedule.pazSalvo, 'tpx-checkbox tpx-checkbox-danger': !schedule.pazSalvo}">
+                                                <input type="checkbox" ng-model="schedule.pazSalvo">
+                                                <span></span>
+                                                {{schedule.pazSalvo ? 'SI' : 'NO'}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-md-lg-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 col-md-2 col-lg-2 control-label">Observaciones</label>
+                                        <div class="col-sm-10 col-md-10 col-lg-10">
+                                            <textarea class="form-control" rows="5" ng-model="schedule.observacionesArqueo">
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <!-- col-sm-6 -->
+                            </div>
+                        </div>
+                        <!-- tab-pane -->
+
+                        <div class="tab-pane" id="tab2-2">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-md-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-lg-4 control-label">Diferencia
+                                            <span class="asterisk">*</span>
+                                        </label>
+                                        <div class="col-sm-5 col-md-5 col-lg-5" ng-if="!isEdit">
+                                            <input type="text" class="form-control input-sm text-right" placeholder="Ingrese la diferencia en $" required
+                                            ng-keypress="onlyNumbers($event)" ng-model="schedule.diferenciaCajaGeneral" ng-change="validateValue('cg')">
+                                        </div>
+                                        <div class="col-sm-5 col-md-5 col-lg-5" ng-if="isEdit">
+                                            <label class="control-label text-right">{{schedule.diferenciaCajaGeneral | currency }}</label>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6" 
+                                    ng-show="observCG">
+                                    <div class="alert alert-danger ng-scope">
+                                        <!-- <a class="close" data-dismiss="alert" aria-hidden="true">×</a> -->
+                                        Debe ingresar la observación.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-md-lg-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 col-md-2 col-lg-2 control-label">Observaciones</label>
+                                        <div class="col-sm-10 col-md-10 col-lg-10">
+                                            <textarea class="form-control" rows="5" ng-model="schedule.observacionesCajaGeneral" ng-change="validateValue('cg')"></textarea>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <!-- col-sm-6 -->
+                            </div>
+                        </div>
+                        <!-- tab-pane -->
+
+                        <div class="tab-pane" id="tab3-2">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-md-lg-6">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 col-md-4 col-lg-4 control-label">Diferencia
+                                            <span class="asterisk">*</span>
+                                        </label>
+                                        <div class="col-sm-5 col-md-5 col-lg-5" ng-if="!isEdit">
+                                            <input type="text" class="form-control input-sm text-right" placeholder="Ingrese la diferencia en $" required
+                                            ng-keypress="onlyNumbers($event)" ng-model="schedule.diferenciaCajaMenor" ng-change="validateValue('cm')">
+                                        </div>
+                                        <div class="col-sm-5 col-md-5 col-lg-5" ng-if="isEdit">
+                                            <label class="control-label text-right">{{schedule.diferenciaCajaMenor | currency }}</label>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6" 
+                                    ng-show="observCM">
+                                    <div class="alert alert-danger ng-scope">
+                                        <!-- <a class="close" data-dismiss="alert" aria-hidden="true">×</a> -->
+                                        Debe ingresar la observación.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-md-lg-12">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 col-md-2 col-lg-2 control-label">Observaciones</label>
+                                        <div class="col-sm-10 col-md-10 col-lg-10">
+                                            <textarea class="form-control" rows="5" ng-model="schedule.observacionesCajaMenor" ng-change="validateValue('cm')"></textarea>
+                                        </div>
+                                    </div>
+                                    <!-- form-group -->
+                                </div>
+                                <!-- col-sm-6 -->
+                            </div>
+                        </div>
+                        <!-- tab-pane -->
+                    </div>
+                    <!-- tab-content -->
+
+                    <ul class="list-unstyled wizard">
+                        <button type="button" class="btn btn-danger btn-metro btn-xs mr5 pull-left" 
+                        ng-if="schedule.fechaFinalArqueo == null"
+                        ng-click="cancelVisit('','static', schedule)">
+                            Cancelar
+                        </button>
+                        <button type="button" class="btn btn-success btn-metro btn-xs mr5 pull-left" 
+                        ng-if="schedule.fechaFinalArqueo != null"
+                        ng-click="goBack()">
+                            Regresar
+                        </button>
+                        <button type="submit" class="btn btn-success btn-metro btn-xs mr5 pull-right" 
+                        ng-disabled="(schedule.diferenciaCajaMenor == null || schedule.diferenciaCajaGeneral == null) || (observCG || observCM)"
+                        ng-if="schedule.fechaFinalArqueo == null">
+                            Finalizar
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-metro btn-xs mr5 pull-right" 
+                        ng-if="schedule.fechaFinalArqueo != null">
+                            Guardar Cambios
+                        </button>
+                    </ul>
+
+                </form>
+                <!-- panel-wizard -->
+            </chain-panel>
+        </div>
+    </div>
+    <!-- col-sm-12 -->
+</div>
+<!-- contentpanel -->

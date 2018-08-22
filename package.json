@@ -1,0 +1,13 @@
+{
+  "name": "lindasmascotas",
+  "version": "1.0.0",
+  "dependencies": {
+    "npm": "^5.7.1"
+  },
+  "scripts": {
+    "start": "lite-server"
+  },
+  "devDependencies": {
+    "lite-server": "^2.3.0"
+  }
+}

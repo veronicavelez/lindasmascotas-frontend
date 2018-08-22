@@ -1,0 +1,94 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="pettyCashFlowModalForm">{{modalTittle}} de Flujos de Caja Menor</h4>
+</div>
+<div class="modal-body">
+
+    <form name="frmPettyCashFlow" id="frmPettyCashFlow" ng-submit="save()" novalidate="novalidate">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Nombre Flujo
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9" ng-hide="isDetail">
+                    <input type="text" class="form-control input-sm" placeholder="Ingrese el nombre del flujo" required ng-model="flujoCM.nombreFlujoCajamenor"
+                        ng-uppercase/>
+                </div>
+
+                <div class="col-sm-9" ng-hide="!isDetail">
+                    <label class="control-label">{{flujoCM.nombreFlujoCajamenor}}</label>
+                </div>
+            </div>
+            <!-- form-group -->
+        </div>
+        <!-- row -->
+
+        <div class="row mb10 form-group">
+            <div class="table-responsive">
+                <div class="alert alert-info ng-scope" ng-hide="isDetail">
+                    <a class="close" data-dismiss="alert" aria-hidden="true">×</a>
+                    Puede ordenar el flujo de la caja menor, arrastrando las filas.
+                </div>
+                <table class="table table-custom" id="tblFlujo">
+                    <thead>
+                        <tr>
+                            <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center" ng-hide="!isDetail">Orden Flujo</th>
+                            <th class="col-xs-6 col-sm-3 col-md-3 col-lg-3">Flujo</th>
+                            <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center" ng-hide="isDetail">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody ui-sortable="sortableOptions" ng-model='flujoCM.detallesFlujosCajasMenoresList' ng-hide="isDetail">
+                        <tr>
+                            <td>
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                    <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un estado..." class="width100p" ng-model="estadoCM.idEstadoCajaMenor">
+                                        <option value=""></option>
+                                        <option ng-repeat="ecm in estadosCM.data" value="{{ecm.idEstadoCajaMenor}}">{{ecm.nombreEstado}}</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td class="table-action text-center">
+                                <a class="btn btn-default btn-metro btn-xs" tooltip="Agregar Estado" tooltip-placement="right" ng-click="addState()">
+                                    <i class="fa fa-plus-square"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="df in flujoCM.detallesFlujosCajasMenoresList">
+                            <td>{{df.idEstadoCajaMenor.nombreEstado}}</td>
+                            <td class="table-action text-center">
+                                <a class="btn btn-danger btn-metro btn-xs" ng-click="removeState($index)">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-hide="!isDetail">
+                        <tr ng-repeat="df in flujoCM.detallesFlujosCajasMenoresList">
+                            <td class="text-center">{{df.ordenFlujo}}</td>
+                            <td>{{df.idEstadoCajaMenor.nombreEstado}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- table-responsive -->
+        </div>
+
+        <div class="row">
+            <div class="text-center" ng-hide="isDetail">
+                <button type="submit" class="btn btn-success btn-metro btn-xs mr5">
+                    <i class="fa fa-save"></i> Guardar</button>
+                <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()">
+                    <i class="fa fa-eraser"></i> Limpiar</button>
+            </div>
+            <div class="text-center" ng-hide="!isDetail">
+                <button type="button" class="btn btn-warning btn-metro btn-xs mr5" ng-click="edit()">
+                        <i class="fa fa-pencil"></i> Editar</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- modal-body -->
+<div class="modal-footer">
+    <button class="btn btn-default btn-metro btn-xs" ng-click="cancel()">Cerrar</button>
+    <!-- <button class="btn btn-success btn-metro btn-xs" ng-click="ok()">Guardar</button> -->
+</div>

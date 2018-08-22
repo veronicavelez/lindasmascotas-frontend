@@ -1,0 +1,89 @@
+<div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="brandModalForm">{{modalTittle}} de Marcas Comerciales</h4>
+    </div>
+    <div class="modal-body">
+    
+        <form name="frmBrands" ng-submit="save()" novalidate="novalidate">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Empresa
+                            <span class="asterisk">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione una empresa..." class="width100p" required
+                            ng-model="marca.marcasEmpresaList[0].marcasEmpresaPK.nitEmpresa">
+                                <option value=""></option>
+                                <option ng-repeat="company in companies.data" value="{{company.nitEmpresa}}">{{company.nombreEmpresa}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- form-group -->
+                </div>
+                <!-- col-sm-6 -->
+            </div>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Código Marca
+                            <span class="asterisk">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control input-sm" placeholder="Ingrese el código de la marca" required 
+                            ng-model="marca.codigoMarca" ng-uppercase />
+                        </div>
+                    </div>
+                    <!-- form-group -->
+                </div>
+                <!-- col-sm-6 -->
+            </div>
+            <div class="row mb10">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Nombre Marca
+                            <span class="asterisk">*</span>
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control input-sm" placeholder="Ingrese el nombre de la marca" required 
+                            ng-model="marca.nombreMarca" ng-uppercase />
+                        </div>
+                    </div>
+                    <!-- form-group -->
+                </div>
+                <!-- col-sm-6 -->
+            </div>
+    
+            <div class="row mb10 form-group">
+                <div class="media col-sm-10 col-md-offset-1" id="divInputFilePhotoBrand">
+                    <div class="text-center mb5">
+                        <img class="img" ng-src="{{marca.logo}}" alt="[Logo Marca]" width="150">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-default">
+                                Imagen <input type="file" style="display: none;" id="fileInput"/>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" ng-model="nombreArchivo" readonly>
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+    
+            <div class="row">
+                <div class="col-sm-offset-4">
+                    <button type="submit" class="btn btn-success btn-metro btn-xs mr5">
+                        <i class="fa fa-save"></i> Guardar</button>
+                    <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()">
+                        <i class="fa fa-eraser"></i> Limpiar</button>
+                </div>
+            </div>
+        </form>
+    
+    </div>
+    <!-- modal-body -->
+    <div class="modal-footer">
+        <button class="btn btn-default btn-metro btn-xs" ng-click="cancel()">Cerrar</button>
+        <!-- <button class="btn btn-success btn-metro btn-xs" ng-click="ok()">Guardar</button> -->
+    </div>

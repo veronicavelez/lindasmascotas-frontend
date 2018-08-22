@@ -1,0 +1,44 @@
+<div class="pageheader" page-header></div>
+
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+      <chain-panel title="Maestro Razas" description="Registro de razas.">
+        <button class="btn btn-primary btn-metro btn-xs mr5 mb10" ng-click="open('','static', 'create')">
+          <i class="fa fa-plus-circle"></i> Crear Nuevo</button>
+
+        <div class="table-responsive">
+          <div class="loaders text-center" ng-hide="razas.status">
+            <img alt src="images/loaders/loader15.gif">
+          </div>
+          <table class="table mb30" datatable="ng" dt-options="dtOptions">
+            <thead>
+              <tr>
+                <th class="col-sm-2 col-md-2 col-lg-2">Especie</th>
+                <th class="col-sm-1 col-md-1 col-lg-1 text-center">Código</th>
+                <th class="col-sm-4 col-md-3 col-lg-3">Nombre</th>
+                <th class="col-sm-2 col-md-2 col-lg-2 text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="raza in razas.data">
+                <td>{{raza.idEspecie.nombreEspecie}}</td>
+                <td class="text-center">{{raza.idRaza}}</td>
+                <td>{{raza.nombreRaza}}</td>
+                <td class="table-action text-center">
+                  <button class="btn btn-warning btn-metro btn-xs" ng-click="open('','static', 'edit', raza)">
+                    <i class="fa fa-pencil"></i> Editar</button>
+                  <button class="btn btn-danger btn-metro btn-xs" ng-click="delete('sm','static',raza)">
+                    <i class="fa fa-trash-o"></i> Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- table-responsive -->
+
+      </chain-panel>
+    </div>
+    <!-- col-sm-6 -->
+  </div>
+  <!-- contentpanel -->

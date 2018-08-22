@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="neighborhoodsModalForm">{{modalTittle}} de Barrios</h4>
+</div>
+<div class="modal-body">
+
+    <form name="frmNeighborhoods" ng-submit="save()" novalidate="novalidate">
+        <div class="row mb10">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Barrio
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" placeholder="Ingrese el barrio" required 
+                    ng-model="barrio.nombreBarrio" />
+                </div>
+            </div>
+            <!-- form-group -->
+        </div>
+        <!-- row -->
+
+        <div class="row">
+            <div class="col-sm-offset-4">
+                <button type="submit" class="btn btn-success btn-metro btn-xs mr5"><i class="fa fa-save"></i> Guardar</button>
+                <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()"><i class="fa fa-eraser"></i> Limpiar</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<!-- modal-body -->
+<div class="modal-footer">
+    <button class="btn btn-default btn-metro btn-xs" ng-click="cancel()">Cerrar</button>
+    <!-- <button class="btn btn-success btn-metro btn-xs" ng-click="ok()">Guardar</button> -->
+</div>
