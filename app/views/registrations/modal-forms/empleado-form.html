@@ -1,0 +1,386 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="employeesModalForm">{{modalTittle}} de Empleados</h4>
+</div>
+<div class="modal-body">
+
+    <form name="frmEmployees" ng-submit="save()" novalidate="novalidate">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-target="#home" data-toggle="tab"><strong>Datos Personales</strong></a></li>
+            <li><a data-target="#profile" data-toggle="tab"><strong>Datos de Contacto</strong></a></li>
+            <li><a data-target="#about" data-toggle="tab"><strong>Datos Empresariales</strong></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content mb30">
+            <div class="tab-pane active" id="home">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Tipo de Documento
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un tipo de documento..." class="width100p" required
+                                    ng-model="empleado.idTipoDocumento.idTipoDoc">
+                                    <option value=""></option>
+                                    <option ng-repeat="tipoDoc in docTypes.data" value="{{tipoDoc.idTipoDoc}}">{{tipoDoc.nombreTipo}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Número de Documento
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7" ng-hide="isEdit">
+                                <input type="text" class="form-control input-sm" placeholder="Ingrese número de documento" required 
+                                ng-model="empleado.idEmpleado" ng-only-numbers>
+                            </div>
+                            <div class="col-sm-7" ng-hide="!isEdit">
+                                <label class="control-label">{{empleado.idEmpleado}}</label>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Nombres
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control input-sm" placeholder="Ingrese los nombres" required 
+                                ng-model="empleado.nombreEmpleado" ng-uppercase/>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Apellidos
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control input-sm" placeholder="Ingrese los apellidos" required 
+                                ng-model="empleado.apellidosEmpleado" ng-uppercase />
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                </div>
+        
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Fecha Nacimiento
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <input type="date" class="form-control input-sm" ng-model="empleado.fechaNacimiento"/>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Genero
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un genero..." class="width100p" required 
+                                ng-model="empleado.idGenero.idGenero">
+                                    <option value=""></option>
+                                    <option ng-repeat="genero in generos.data" value="{{genero.idGenero}}">{{genero.nombreGenero}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Tipo de Sangre
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un tipo de sangre..." class="width100p" required 
+                                ng-model="empleado.idTipoSangre.idTipoSangre">
+                                    <option value=""></option>
+                                    <option ng-repeat="tipoSangre in tiposSangre.data" value="{{tipoSangre.idTipoSangre}}">{{tipoSangre.nombreTipoSangre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Tipo Rh
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <select class="form-control" data-placeholder="Seleccione un rh..." class="width100p" required 
+                                ng-model="empleado.tipoRh">
+                                    <option value="">Seleccione un rh..</option>
+                                    <option>+</option>
+                                    <option>-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                </div>                
+            </div><!-- tab-pane -->
+            <div class="tab-pane" id="profile">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Correo Electrónico
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <input type="email" class="form-control input-sm" placeholder="Ingrese una dirección válida" required
+                                ng-model="empleado.correoElectronico" ng-uppercase/>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Dirección de Residencia
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control input-sm" placeholder="Ingrese la dirección" required 
+                                ng-model="empleado.direccion" ng-uppercase />
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">País
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un país..." class="width100p" required 
+                                ng-model="empleado.idCiudad.idDpto.idPais.idPais" ng-change="getDepartmentsByCountry()">
+                                    <option value=""></option>
+                                    <option ng-repeat="country in countries.data" value="{{country.idPais}}">{{country.nombrePais}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Departamento
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un departamento..." class="width100p" required 
+                                ng-model="empleado.idCiudad.idDpto.idDepartamento" ng-change="getCitiesByDepartments()"
+                                ng-disabled="empleado.idCiudad.idDpto.idPais.idPais == ''">
+                                    <option value=""></option>
+                                    <option ng-repeat="depto in deptos.data" value="{{depto.idDepartamento}}">{{depto.nombreDepartamento}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Ciudad
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione una ciudad..." class="width100p" required 
+                                ng-model="empleado.idCiudad.idCiudad" ng-disabled="empleado.idCiudad.idDpto.idDepartamento == ''">
+                                    <option value=""></option>
+                                    <option ng-repeat="city in cities.data" value="{{city.idCiudad}}">{{city.nombreCiudad}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Barrio
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un barrio..." class="width100p" required 
+                                ng-model="empleado.idBarrio.idBarrio">
+                                    <option value=""></option>
+                                    <option ng-repeat="barrio in barrios.data" value="{{barrio.idBarrio}}">{{barrio.nombreBarrio}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Teléfono Fijo
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control input-sm" placeholder="Ingrese el teléfono fijo" required 
+                                ng-model="empleado.telefonoFijo" ng-only-numbers/>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Teléfono Móvil
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control input-sm" placeholder="Ingrese el teléfono móvil" required 
+                                ng-model="empleado.telefonoMovil" ng-only-numbers />
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                </div>
+            </div><!-- tab-pane -->
+            <div class="tab-pane" id="about">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Cargo
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un cargo..." class="width100p" required 
+                                 ng-model="empleado.idCargo.idCargo">
+                                    <option value=""></option>
+                                    <option ng-repeat="cargo in cargos.data" value="{{cargo.idCargo}}">{{cargo.nombreCargo}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Tipo Contrato
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un tipo de contrato..." class="width100p" required 
+                                ng-model="empleado.idTipoContrato.idTipoContrato">
+                                    <option value=""></option>
+                                    <option ng-repeat="tipoContra in tipoContratos.data" value="{{tipoContra.idTipoContrato}}">{{tipoContra.nombreContrato}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Fecha Inicio de Contrato
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <input type="date" class="form-control input-sm" ng-model="empleado.fechaContratoInicial"/>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Fecha Final de Contrato
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <input type="date" class="form-control input-sm" ng-model="empleado.fechaContratoFinal"/>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                </div>
+                <div class="row mb10 form-group">
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Perfil
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un perfil..." class="width100p" required 
+                                ng-model="empleado.idPerfil.idPerfil">
+                                    <option value=""></option>
+                                    <option ng-repeat="perfil in perfiles.data" value="{{perfil.idPerfil}}">{{perfil.nombrePerfil}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                    <div class="col-sm-6 col-md-6 col-md-lg-6">
+                        <div class="form-group">
+                            <label class="col-sm-5 col-md-5 col-lg-5 control-label">Estado
+                                <span class="asterisk">*</span>
+                            </label>
+                            <div class="col-sm-7">
+                                <select class="form-control" data-placeholder="Seleccione un estado..." class="width100p" required 
+                                ng-model="empleado.estadoEmpleado">
+                                    <option value="">Seleccione una opción</option>
+                                    <option value="true">Activo</option>
+                                    <option value="false">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- form-group -->
+                    </div>
+                    <!-- col-sm-6 -->
+                </div>
+                <!-- row -->
+            </div><!-- tab-pane -->
+        </div><!-- tab-content -->
+        <div class="row">
+            <div class="text-center">
+                <button type="submit" class="btn btn-success btn-metro btn-xs mr5">
+                    <i class="fa fa-save"></i> Guardar</button>
+                <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()">
+                    <i class="fa fa-eraser"></i> Limpiar</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<!-- modal-body -->
+<div class="modal-footer">
+    <button class="btn btn-default btn-metro btn-xs" ng-click="cancel()">Cerrar</button>
+    <!-- <button class="btn btn-success btn-metro btn-xs" ng-click="ok()">Guardar</button> -->
+</div>

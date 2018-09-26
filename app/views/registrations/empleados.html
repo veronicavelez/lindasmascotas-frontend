@@ -1,0 +1,54 @@
+<div class="pageheader" page-header></div>
+
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <chain-panel title="Empleados" description="Registro de Empleados.">
+        <div class="row mb10">
+          <button class="btn btn-primary btn-metro btn-xs" ng-click="open('lg','static', 'create')">
+            <i class="fa fa-plus-circle"></i> Crear Nuevo</button>
+        </div>
+
+        <div class="table-responsive">
+          <div class="loaders text-center" ng-hide="empleados.status">
+            <img alt src="images/loaders/loader15.gif">
+          </div>
+          <table class="table mb30" datatable="ng" dt-options="dtOptions">
+            <thead>
+              <tr>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Identificación</th>
+                <th class="col-xs-5 col-sm-2 col-md-2 col-lg-2">Nombres</th>
+                <th class="col-xs-5 col-sm-1 col-md-1 col-lg-1">Ocupación</th>
+                <th class="col-xs-5 col-sm-1 col-md-1 col-lg-1">Estado</th>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="empleado in empleados.data">
+                <td class="text-center">{{empleado.idEmpleado}}</td>
+                <td>{{empleado.nombreEmpleado}} {{empleado.apellidosEmpleado}}</td>
+                <td>{{empleado.idCargo.nombreCargo}}</td>
+                <td class="text-center">
+                  <span ng-if="empleado.estadoEmpleado" class="label label-success">
+                      Activo
+                  </span>
+                  <span ng-if="!empleado.estadoEmpleado" class="label label-danger">
+                      Inactivo
+                  </span>
+                </td>
+                <td class="table-action text-center">
+                  <button class="btn btn-warning btn-metro btn-xs" ng-click="open('lg','static', 'edit', empleado)">
+                    <i class="fa fa-pencil"></i> Editar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- table-responsive -->
+
+      </chain-panel>
+    </div>
+    <!-- col-sm-6 -->
+  </div>
+  <!-- contentpanel -->
+  </div>

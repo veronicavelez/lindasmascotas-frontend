@@ -1,0 +1,72 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="productsModalForm">{{modalTittle}} de Producto</h4>
+</div>
+<div class="modal-body">
+
+    <form name="frmProducts" ng-submit="save()" novalidate="novalidate">
+        <div class="row mb10">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Código Producto
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input class="form-control input-sm" placeholder="Ingrese el código del producto" required 
+                    ng-model="producto.idProducto" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Nombre Producto
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" placeholder="Ingrese el nombre del producto" required 
+                    ng-model="producto.nombreProducto" ng-uppercase/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Descripción Producto
+                       <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <textarea type="text" class="form-control input-sm" placeholder="Ingrese la descripción del producto" required
+                    ng-model="producto.descripcionProducto"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Marca Producto
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input  class="form-control input-sm" placeholder="Ingrese la marca del producto" required 
+                    ng-model="producto.marca"  ng-uppercase />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Precio Producto
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input  class="form-control input-sm" placeholder="Ingrese el precio del producto" required 
+                    ng-model="producto.precio  | currency" />
+                </div>
+            </div>
+            
+            <!-- form-group -->
+        </div>
+        <!-- row -->
+
+        <div class="row">
+            <div class="col-sm-offset-4">
+                <button type="submit" class="btn btn-success btn-metro btn-xs mr5"><i class="fa fa-save"></i> Guardar</button>
+                <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()"><i class="fa fa-eraser"></i> Limpiar</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<!-- modal-body -->
+<div class="modal-footer">
+    <button class="btn btn-default btn-metro btn-xs" ng-click="cancel()">Cerrar</button>
+    <!-- <button class="btn btn-success btn-metro btn-xs" ng-click="ok()">Guardar</button> -->
+</div>

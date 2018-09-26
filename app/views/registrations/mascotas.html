@@ -1,0 +1,54 @@
+<div class="pageheader" page-header></div>
+
+<div class="contentpanel">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <chain-panel title="Mascotas" description="Registro de Mascotas.">
+        <div class="row mb10">
+          <button class="btn btn-primary btn-metro btn-xs" ng-click="open('lg','static', 'create')">
+            <i class="fa fa-plus-circle"></i> Crear Nuevo</button>
+        </div>
+
+        <div class="table-responsive">
+          <div class="loaders text-center" ng-hide="mascotas.status">
+            <img alt src="images/loaders/loader15.gif">
+          </div>
+          <table class="table mb30" datatable="ng" dt-options="dtOptions">
+            <thead>
+              <tr>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Id</th>
+                <th class="col-xs-5 col-sm-2 col-md-2 col-lg-2">Nombre</th>
+                <th class="col-xs-5 col-sm-2 col-md-2 col-lg-2">Propietario</th>
+                <th class="col-xs-5 col-sm-1 col-md-1 col-lg-1">Estado</th>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="mascota in mascotas.data">
+                  <td class="text-center">{{mascota.idMascota}}</td>
+                  <td>{{mascota.nombreMascota}}</td>
+                  <td>{{mascota.idPropietario.nombrePropietario}} {{mascota.idPropietario.apellidosPropietario}}</td>
+                <td class="text-center">
+                  <span ng-if="mascota.estado" class="label label-success">
+                      Activo
+                  </span>
+                  <span ng-if="!mascota.estado" class="label label-danger">
+                      Inactivo
+                  </span>
+                </td>
+                <td class="table-action text-center">
+                  <button class="btn btn-warning btn-metro btn-xs" ng-click="open('lg','static', 'edit', mascota)">
+                    <i class="fa fa-pencil"></i> Editar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- table-responsive -->
+
+      </chain-panel>
+    </div>
+    <!-- col-sm-6 -->
+  </div>
+  <!-- contentpanel -->
+  </div>

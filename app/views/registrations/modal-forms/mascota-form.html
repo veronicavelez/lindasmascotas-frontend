@@ -1,0 +1,163 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="mascotasModalForm">{{modalTittle}} de Mascotas</h4>
+</div>
+<div class="modal-body">
+
+    <form name="frmMascotas" ng-submit="save()" novalidate="novalidate">
+        <div class="row">
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                <label class="col-sm-3 control-label">Nombre 
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" placeholder="Ingrese el nombre de la mascota" required 
+                    ng-model="mascota.nombreMascota" ng-uppercase/>
+                </div>
+            </div>
+            <!-- form-group -->
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                <label class="col-sm-3 control-label">Fecha Nacimiento 
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input type="date" class="form-control input-sm" required 
+                    ng-model="mascota.fechaNacimiento"/>
+                </div>
+            </div>
+            <!-- form-group -->
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                <label class="col-sm-3 control-label">Sexos
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un sexo..." class="width100p" required
+                    ng-model="mascota.idSexo.idSexo" >
+                        <option value=""></option>
+                        <option ng-repeat="sexo in sexos.data" value="{{sexo.idSexo}}">{{sexo.nombreSexo}}</option>
+                    </select>
+                </div>
+            </div>
+            <!-- form-group -->
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                <label class="col-sm-3 control-label">Peso
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input type="" class="form-control input-sm" placeholder="Ingrese el peso de la mascota" required 
+                    ng-model="mascota.peso" />
+                </div>
+            </div>
+            <!-- form-group -->
+        </div>
+        <!-- row -->
+        <div class="row mb10">
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                <label class="col-sm-3 control-label">Especie
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione una especie..." class="width100p" required
+                    ng-model="mascota.idEspecie.idEspecie" >
+                        <option value=""></option>
+                        <option ng-repeat="especie in especies.data" value="{{especie.idEspecie}}">{{especie.nombreEspecie}}</option>
+                    </select>
+                </div>
+            </div>
+            <!-- form-group -->
+            <div class="form-group col-sm-6 col-md-6 col-lg-6">
+                <label class="col-sm-3 control-label">Raza
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione una raza..." class="width100p" required
+                    ng-model="mascota.idRaza.idRaza" >
+                        <option value=""></option>
+                        <option ng-repeat="raza in razas.data" value="{{raza.idRaza}}">{{raza.nombreRaza}}</option>
+                    </select>
+                </div>
+            </div>
+            <!-- form-group -->
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group ">
+                    <label class="col-sm-3 control-label">Identificación Propietario
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-9">
+                        <input type="" class="form-control input-sm" placeholder="" required 
+                        ng-model="mascota.idPropietario.idPropietario" ng-only-numbers/>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Nombre Propietario
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-9">
+                        <select ui-select2="{ allowClear: true }" data-placeholder="" class="width100p" required
+                        ng-model="mascota.idPropietario.idPropietario" >
+                            <option value="">Seleccione una opción</option>
+                            <option ng-repeat="propietario in propietarios.data" ng-selected="mascota.idPropietario.idPropietario == propietario.idPropietario" value="{{propietario.idPropietario}}">
+                            {{propietario.nombrePropietario}} {{propietario.apellidosPropietario}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-md-lg-6">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Vive
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <select class="form-control" data-placeholder="Seleccione un estado..." class="width100p" required 
+                    ng-model="mascota.vive">
+                        <option value="">Seleccione una opción</option>
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+            <!-- form-group -->
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Estado
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <select class="form-control" data-placeholder="Seleccione un estado..." class="width100p" required 
+                    ng-model="mascota.estado">
+                        <option value="">Seleccione una opción</option>
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+            <!-- form-group -->
+        </div>
+
+        <div class="row">
+            <div class="col-sm-offset-4">
+                <button type="submit" class="btn btn-success btn-metro btn-xs mr5">
+                    <i class="fa fa-save"></i> Guardar</button>
+                <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()">
+                    <i class="fa fa-eraser"></i> Limpiar</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<!-- modal-body -->
+<div class="modal-footer">
+    <button class="btn btn-default btn-metro btn-xs" ng-click="cancel()">Cerrar</button>
+    <!-- <button class="btn btn-success btn-metro btn-xs" ng-click="ok()">Guardar</button> -->
+</div>
