@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="animalGendersModalForm">{{modalTittle}} de Sexos</h4>
+</div>
+<div class="modal-body">
+
+    <form name="frmAnimalGenders" ng-submit="save()" novalidate="novalidate">
+        <div class="row mb10">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Sexo
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" placeholder="Ingrese el sexo" required 
+                    ng-model="sexo.nombreSexo" ng-uppercase />
+                </div>
+            </div>
+            <!-- form-group -->
+        </div>
+        <!-- row -->
+
+        <div class="row">
+            <div class="col-sm-offset-4">
+                <button type="submit" class="btn btn-success btn-metro btn-xs mr5"><i class="fa fa-save"></i> Guardar</button>
+                <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()"><i class="fa fa-eraser"></i> Limpiar</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<!-- modal-body -->
+<div class="modal-footer">
+    <button class="btn btn-default btn-metro btn-xs" ng-click="cancel()">Cerrar</button>
+    <!-- <button class="btn btn-success btn-metro btn-xs" ng-click="ok()">Guardar</button> -->
+</div>
