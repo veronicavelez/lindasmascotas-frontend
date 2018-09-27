@@ -23,10 +23,10 @@ var lindasmascotas = angular.module('lindasmascotasApp', [
   'ConfigCountries'            , 'ConfigDepartments'      , 'ConfigCities'        ,
   'ConfigDocumentTypes'        , 'ConfigRazas'          , 'ConfigEspecies'    ,
   'ConfigOccupations'          , 'ConfigBarrios' , 'ConfigGeneros'   ,
-  'ConfigPerfiles'    , 'mmConfigPettyCashStates'  , 'mmConfigPettyCashFlow' ,
-  'mmVinculCompanies'            , 'mmVinculBrandNames'       , 'mmVinculUsers'         ,
-  'mmVinculStores'               , 'mmSchSchedules'           , 'mmAudCashBalanceAudit'  ,
-  'mmRepayPettyCash'             ,
+  'ConfigPerfiles'    , 'ConfigProductos'  , 'ConfigServicios' ,
+  'ConfigSexos'            , 'ConfigTipoContratos'       , 'ConfigTipoSangre'         ,
+  'ConfigVacunas'               , 'ConfigEmpleados'           , 'ConfigMascotas'  ,
+  'ConfigPropietarios'             ,
   
   
   'chainDashboard'      , 'chainMessages'       , 'chainElemAlerts'  ,
@@ -42,10 +42,10 @@ var lindasmascotas = angular.module('lindasmascotasApp', [
   'ConfigCountriesSvc'         , 'ConfigDepartmentsSvc'   , 'ConfigCitiesSvc'      ,
   'DocumentTypesSvc'           , 'RazasSvc'             , 'EspeciesSvc'        ,
   'OccupationsSvc'             , 'BarriosSvc'    , 'GenerosSvc'       ,
-  'PerfilesSvc'       , 'mmPettyCashStatesSvc'     , 'mmPettyCashFlowSvc'     ,
-  'mmVinculCompaniesSvc'         , 'mmVinculBrandNamesSvc'    , 'mmVinculUsersSvc'       ,
-  'mmVinculStoresSvc'            , 'mmSchSchedulesSvc'        , 'mmAudCashBalanceAuditSvc',
-  'mmRepayPettyCashSvc'
+  'PerfilesSvc'       , 'ProductosSvc'     , 'ServiciosSvc'     ,
+  'SexosSvc'         , 'TipoContratosSvc'    , 'TipoSangreSvc'       ,
+  'VacunasSvc'            , 'EmpleadosSvc'        , 'MascotasSvc',
+  'PropietariosSvc'
 ]);
 
 lindasmascotas.controller('MainCtrl', ['$scope', '$http', '$state', function ($scope, $http, $state) {
