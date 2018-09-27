@@ -76,25 +76,25 @@
         ]
     },
     {
-        "state": "vinculations",
+        "state": "registrations",
         "icon": "edit",
-        "label": "Vinculaciones",
+        "label": "Registros",
         "children": [
             {
-                "state": "vinculations.companies",
-                "label": "Empresas"
+                "state": "registrations.employees",
+                "label": "Empleados"
             },
             {
-                "state": "vinculations.brandNames",
-                "label": "Marcas"
+                "state": "registrations.pets",
+                "label": "Mascotas"
             },
             {
-                "state": "vinculations.users",
+                "state": "registrations.owners",
+                "label": "Propietarios"
+            },
+            {
+                "state": "registrations.users",
                 "label": "Usuarios del sistema"
-            },
-            {
-                "state": "vinculations.stores",
-                "label": "Tiendas"
             }
         ]
     },
@@ -106,59 +106,6 @@
             {
                 "state": "schedules.activitySchedules",
                 "label": "Agendar Visita"
-            }
-        ]
-    },
-    {
-        "state": "audits",
-        "icon": "search",
-        "label": "Auditorías",
-        "children": [
-            {
-                "state": "audits.cashBalanceAudit",
-                "label": "Arqueo de Caja"
-            },
-            {
-                "state": "audits.pettyCashAudit",
-                "label": "Revisión de Caja Menor"
-            }
-            
-        ]
-    },
-    {
-        "state": "repayments",
-        "icon": "usd",
-        "label": "Reembolso de caja",
-        "children": [
-            {
-                "state": "repayments.pettyCash",
-                "label": "Caja Menor"
-            }
-        ]
-    },
-    {
-        "state": "supports",
-        "icon": "upload",
-        "label": "Carga de soportes",
-        "children": [
-            {
-                "state": "supports.auditSupport",
-                "label": "Soportes de Auditoría"
-            }
-        ]
-    },
-    {
-        "state": "reports",
-        "icon": "files-o",
-        "label": "Generar reportes",
-        "children": [
-            {
-                "state": "reports.auditSupportQuery",
-                "label": "Soportes de Auditoría"
-            },
-            {
-                "state": "reports.appointmentsFulfilled",
-                "label": "Visitas Cumplidas"
             }
         ]
     }
