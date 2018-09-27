@@ -2,13 +2,13 @@
 
 /**
 * @ngdoc function
-* @name ConfigPerfiles.controller:PerfilesCtrl
+* @name ConfigProductos.controller:ProductosCtrl
 * @description
 * # CountriesCtrl
 * Controller of the modyMarcaApp
 */
 
-var page = angular.module('ConfigPerfiles', ['jcs-autoValidate','datatables','ngResource']);
+var page = angular.module('ConfigProductos', ['jcs-autoValidate','datatables','ngResource']);
 
 angular.module('jcs-autoValidate')
     .run([
@@ -23,16 +23,16 @@ angular.module('jcs-autoValidate')
         }
     ]);
 
-page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder','PerfilesSvc','$resource', function ($scope,$modal,$window,DTOptionsBuilder,
-  PerfilesSvc,$resource) {
+page.controller('ProductosCtrl', ['$scope','$modal','$window','DTOptionsBuilder','ProductosSvc','$resource', function ($scope,$modal,$window,DTOptionsBuilder,
+  ProductosSvc,$resource) {
 
   // Page header info (views/layouts/pageheader.html)
   $window.scrollTo(0,0);
   $scope.pageicon = 'fa fa-cogs';
-  $scope.pagetitle = 'Generos';
+  $scope.pagetitle = 'Productos';
   $scope.parentpages = [{'url': 'masters','pagetitle': 'Configuraciones'}];
 
-  $scope.perfiles = new ResponseLm();
+  $scope.productos = new ResponseLm();
 
   function dataTableOptions(){
     $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -40,23 +40,23 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
   };
   dataTableOptions();
 
-  $scope.open = function (size, backdrop, action, editPerfiles) {
+  $scope.open = function (size, backdrop, action, editProducto) {
     backdrop = backdrop ? backdrop : true;
     var modalInstance = $modal.open({
-      templateUrl: 'views/masters/modal-forms/perfiles-form.html',
+      templateUrl: 'views/masters/modal-forms/producto-form.html',
       size: size,
       backdrop: backdrop,
       controller: ['$scope', '$modalInstance', function($scope, $modalInstance){
         $scope.action = action;
-        $scope.genero = new Genero();
+        $scope.producto = new Producto();
 
         if (action === 'create') {
           $scope.modalTittle = 'Registro';
         } else if (action === 'edit') {
           $scope.modalTittle = 'Edición';
 
-          if (angular.isObject(editPerfiles)) {
-            angular.copy(editPerfiles, $scope.genero);
+          if (angular.isObject(editProducto)) {
+            angular.copy(editProducto, $scope.producto);
           }
         }
 
@@ -75,7 +75,7 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
     });
   };
 
-  $scope.delete = function (size, backdrop, delGenero) {
+  $scope.delete = function (size, backdrop, delProducto) {
     backdrop = backdrop ? backdrop : true;
     var modalInstance = $modal.open({
       templateUrl: 'views/shared/confirm-delete.html',
@@ -83,13 +83,13 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
       backdrop: backdrop,
       controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 
-        if (angular.isObject(delGenero)) {
-          $scope.message = 'Está seguro de que desea eliminar el genero';
-          $scope.description = delGenero.nombreGenero;
+        if (angular.isObject(delProducto)) {
+          $scope.message = 'Está seguro de que desea eliminar el producto';
+          $scope.description = delProducto.nombreProducto;
         }
 
         $scope.ok = function () {
-          confirmDelete($scope, delGenero.idGenero);
+          confirmDelete($scope, delProducto.idProducto);
         };
 
         $scope.cancel = function () {
@@ -99,9 +99,9 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
     });
   };
 
-  function loadAllGenders (){
-    PerfilesSvc.getGenders().then(function(response){
-      $scope.perfiles = response;
+  function loadAllProducts (){
+    ProductosSvc.getProducts().then(function(response){
+      $scope.productos = response;
 
       if (!response.status) {
         infoMessage(response.message, 'growl-warning', 'warning');
@@ -111,18 +111,18 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
       infoMessage('No se ha podido establecer conexión con el servidor, intente más tarde!...', 'growl-danger', 'danger');
     });
   };
-  loadAllGenders();
+  loadAllProducts();
 
   function save($modalScope) {
     //scope from modal
     
-    $scope.perfiles = new ResponseLm();
+    $scope.productos = new ResponseLm();
 
-    PerfilesSvc.save($modalScope.genero, $modalScope.action).then(function(response){
-      $scope.perfiles = response;
+    ProductosSvc.save($modalScope.producto, $modalScope.action).then(function(response){
+      $scope.productos = response;
 
       if (!response.status) {
-        $scope.perfiles.status = true;
+        $scope.productos.status = true;
         infoMessage(response.message, 'growl-warning', 'warning');
 
       } else {
@@ -143,18 +143,18 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
 
   function clean($scope) {
     //scope from modal    
-    $scope.genero = new Genero();
+    $scope.producto = new Producto();
   };
 
   function confirmDelete($modalScope, id) {
 
-    $scope.perfiles = new ResponseLm();
+    $scope.productos = new ResponseLm();
 
-    PerfilesSvc.delete(id).then(function (response) {
-      $scope.perfiles = response;
+    ProductosSvc.delete(id).then(function (response) {
+      $scope.productos = response;
 
       if (!response.status) {
-        $scope.perfiles.status = true;
+        $scope.productos.status = true;
         infoMessage(response.message, 'growl-warning', 'warning');
 
       } else {
@@ -175,7 +175,7 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
 
   function infoMessage(text, class_name, image) {
     jQuery.gritter.add({
-      title: 'Servicio Géneros',
+      title: 'Productos',
       text: text,
       class_name: class_name, //'growl-primary'
       image: 'images/' + image + '.png',
@@ -189,10 +189,10 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
 page.config(['$stateProvider', function($stateProvider) {
 
   $stateProvider
-  .state('masters.profiles', {
-    url: '/perfiles',
-    templateUrl: 'views/masters/perfiles.html',
-    controller: 'PerfilesCtrl'
+  .state('masters.products', {
+    url: '/productos',
+    templateUrl: 'views/masters/productos.html',
+    controller: 'ProductosCtrl'
   });
 
 }]);

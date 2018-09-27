@@ -2,13 +2,13 @@
 
 /**
 * @ngdoc function
-* @name mmConfigPettyCashStates.controller:PettyCashStatesCtrl
+* @name ConfigTipoContratos.controller:TipoContratosCtrl
 * @description
 * # CountriesCtrl
 * Controller of the modyMarcaApp
 */
 
-var page = angular.module('mmConfigPettyCashStates', ['jcs-autoValidate','datatables','ngResource']);
+var page = angular.module('ConfigTipoContratos', ['jcs-autoValidate','datatables','ngResource']);
 
 angular.module('jcs-autoValidate')
     .run([
@@ -23,41 +23,40 @@ angular.module('jcs-autoValidate')
         }
     ]);
 
-page.controller('PettyCashStatesCtrl', ['$scope','$modal','$window','DTOptionsBuilder','PettyCashStatesSvc', function ($scope,$modal,$window,
-  DTOptionsBuilder,PettyCashStatesSvc) {
+page.controller('TipoContratosCtrl', ['$scope','$modal','$window','DTOptionsBuilder','TipoContratosSvc','$resource', function ($scope,$modal,$window,DTOptionsBuilder,
+  TipoContratosSvc,$resource) {
 
   // Page header info (views/layouts/pageheader.html)
   $window.scrollTo(0,0);
   $scope.pageicon = 'fa fa-cogs';
-  $scope.pagetitle = 'Maestro Estados de Caja Menor';
+  $scope.pagetitle = 'Tipo de Contratos';
   $scope.parentpages = [{'url': 'masters','pagetitle': 'Configuraciones'}];
 
-  $scope.estadosCM = new ResponseLm();
+  $scope.tipoContratos = new ResponseLm();
 
   function dataTableOptions(){
     $scope.dtOptions = DTOptionsBuilder.newOptions()
-        .withLanguageSource('scripts/lib/language-dataTables.json');
+    .withLanguageSource('scripts/lib/language-dataTables.json');    
   };
   dataTableOptions();
 
-  $scope.open = function (size, backdrop, action, editEstadoCM) {
+  $scope.open = function (size, backdrop, action, editTipoContra) {
     backdrop = backdrop ? backdrop : true;
     var modalInstance = $modal.open({
-      templateUrl: 'views/masters/modal-forms/petty-cash-states-form.html',
+      templateUrl: 'views/masters/modal-forms/tipoContrato-form.html',
       size: size,
       backdrop: backdrop,
       controller: ['$scope', '$modalInstance', function($scope, $modalInstance){
         $scope.action = action;
-        $scope.estadoCM = new EstadosCajaMenor();
-        console.log($scope.estadoCM);
+        $scope.tipoContra = new TipoContrato();
 
         if (action === 'create') {
           $scope.modalTittle = 'Registro';
         } else if (action === 'edit') {
           $scope.modalTittle = 'Edición';
 
-          if (angular.isObject(editEstadoCM)) {
-            angular.copy(editEstadoCM, $scope.estadoCM);
+          if (angular.isObject(editTipoContra)) {
+            angular.copy(editTipoContra, $scope.tipoContra);
           }
         }
 
@@ -76,33 +75,33 @@ page.controller('PettyCashStatesCtrl', ['$scope','$modal','$window','DTOptionsBu
     });
   };
 
-  $scope.delete = function(size,backdrop,delEstado){
+  $scope.delete = function (size, backdrop, delTipoContra) {
     backdrop = backdrop ? backdrop : true;
     var modalInstance = $modal.open({
       templateUrl: 'views/shared/confirm-delete.html',
       size: size,
       backdrop: backdrop,
-      controller: ['$scope','$modalInstance',function($scope,$modalInstance){
+      controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 
-        if (angular.isObject(delEstado)) {
-          $scope.message = 'Está seguro de que desea elminar el estado ';
-          $scope.description = delEstado.nombreEstado;
+        if (angular.isObject(delTipoContra)) {
+          $scope.message = 'Está seguro de que desea eliminar el tipo de contrato';
+          $scope.description = delTipoContra.nombreContrato;
         }
 
-        $scope.ok = function(){
-          confirmDelete($scope,delEstado.idEstadoCajaMenor);
+        $scope.ok = function () {
+          confirmDelete($scope, delTipoContra.idTipoContrato);
         };
 
-        $scope.cancel = function(){
+        $scope.cancel = function () {
           $modalInstance.close();
         };
       }]
     });
   };
 
-  function loadAllStates(){
-    PettyCashStatesSvc.getStates().then(function(response){
-      $scope.estadosCM = response;
+  function loadAllAgreementTypes (){
+    TipoContratosSvc.getAgreementTypes().then(function(response){
+      $scope.tipoContratos = response;
 
       if (!response.status) {
         infoMessage(response.message, 'growl-warning', 'warning');
@@ -112,18 +111,18 @@ page.controller('PettyCashStatesCtrl', ['$scope','$modal','$window','DTOptionsBu
       infoMessage('No se ha podido establecer conexión con el servidor, intente más tarde!...', 'growl-danger', 'danger');
     });
   };
-  loadAllStates();
+  loadAllAgreementTypes();
 
   function save($modalScope) {
     //scope from modal
     
-    $scope.estadosCM = new ResponseLm();
+    $scope.tipoContratos = new ResponseLm();
 
-    PettyCashStatesSvc.save($modalScope.estadoCM, $modalScope.action).then(function(response){
-      $scope.estadosCM = response;
+    TipoContratosSvc.save($modalScope.tipoContra, $modalScope.action).then(function(response){
+      $scope.tipoContratos = response;
 
       if (!response.status) {
-        $scope.estadosCM.status = true;
+        $scope.tipoContratos.status = true;
         infoMessage(response.message, 'growl-warning', 'warning');
 
       } else {
@@ -141,21 +140,21 @@ page.controller('PettyCashStatesCtrl', ['$scope','$modal','$window','DTOptionsBu
 
     $modalScope.cancel();
   };
-  
-  function clean($modalScope) {
+
+  function clean($scope) {
     //scope from modal    
-    $modalScope.estadoCM = new EstadosCajaMenor();
+    $scope.tipoContra = new TipoContrato();
   };
 
   function confirmDelete($modalScope, id) {
 
-    $scope.estadosCM = new ResponseLm();
+    $scope.tipoContratos = new ResponseLm();
 
-    PettyCashStatesSvc.delete(id).then(function (response) {
-      $scope.estadosCM = response;
+    TipoContratosSvc.delete(id).then(function (response) {
+      $scope.tipoContratos = response;
 
       if (!response.status) {
-        $scope.estadosCM.status = true;
+        $scope.tipoContratos.status = true;
         infoMessage(response.message, 'growl-warning', 'warning');
 
       } else {
@@ -176,7 +175,7 @@ page.controller('PettyCashStatesCtrl', ['$scope','$modal','$window','DTOptionsBu
 
   function infoMessage(text, class_name, image) {
     jQuery.gritter.add({
-      title: 'Servicio Estados de Caja Menor',
+      title: 'Servicio Tipo Contratos',
       text: text,
       class_name: class_name, //'growl-primary'
       image: 'images/' + image + '.png',
@@ -190,10 +189,10 @@ page.controller('PettyCashStatesCtrl', ['$scope','$modal','$window','DTOptionsBu
 page.config(['$stateProvider', function($stateProvider) {
 
   $stateProvider
-  .state('masters.pettyCashStates', {
-    url: '/petty-cash-states',
-    templateUrl: 'views/masters/petty-cash-states.html',
-    controller: 'PettyCashStatesCtrl'
+  .state('masters.agreementTypes', {
+    url: '/tipoContratos',
+    templateUrl: 'views/masters/tipoContratos.html',
+    controller: 'TipoContratosCtrl'
   });
 
 }]);

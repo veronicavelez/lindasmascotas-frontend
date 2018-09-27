@@ -2,13 +2,13 @@
 
 /**
 * @ngdoc function
-* @name ConfigPerfiles.controller:PerfilesCtrl
+* @name ConfigSexos.controller:SexosCtrl
 * @description
 * # CountriesCtrl
 * Controller of the modyMarcaApp
 */
 
-var page = angular.module('ConfigPerfiles', ['jcs-autoValidate','datatables','ngResource']);
+var page = angular.module('ConfigSexos', ['jcs-autoValidate','datatables','ngResource']);
 
 angular.module('jcs-autoValidate')
     .run([
@@ -23,16 +23,16 @@ angular.module('jcs-autoValidate')
         }
     ]);
 
-page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder','PerfilesSvc','$resource', function ($scope,$modal,$window,DTOptionsBuilder,
-  PerfilesSvc,$resource) {
+page.controller('SexosCtrl', ['$scope','$modal','$window','DTOptionsBuilder','SexosSvc','$resource', function ($scope,$modal,$window,DTOptionsBuilder,
+  SexosSvc,$resource) {
 
   // Page header info (views/layouts/pageheader.html)
   $window.scrollTo(0,0);
   $scope.pageicon = 'fa fa-cogs';
-  $scope.pagetitle = 'Generos';
+  $scope.pagetitle = 'Sexos';
   $scope.parentpages = [{'url': 'masters','pagetitle': 'Configuraciones'}];
 
-  $scope.perfiles = new ResponseLm();
+  $scope.sexos = new ResponseLm();
 
   function dataTableOptions(){
     $scope.dtOptions = DTOptionsBuilder.newOptions()
@@ -40,23 +40,23 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
   };
   dataTableOptions();
 
-  $scope.open = function (size, backdrop, action, editPerfiles) {
+  $scope.open = function (size, backdrop, action, editSexos) {
     backdrop = backdrop ? backdrop : true;
     var modalInstance = $modal.open({
-      templateUrl: 'views/masters/modal-forms/perfiles-form.html',
+      templateUrl: 'views/masters/modal-forms/sexos-form.html',
       size: size,
       backdrop: backdrop,
       controller: ['$scope', '$modalInstance', function($scope, $modalInstance){
         $scope.action = action;
-        $scope.genero = new Genero();
+        $scope.sexo = new Sexo();
 
         if (action === 'create') {
           $scope.modalTittle = 'Registro';
         } else if (action === 'edit') {
           $scope.modalTittle = 'Edición';
 
-          if (angular.isObject(editPerfiles)) {
-            angular.copy(editPerfiles, $scope.genero);
+          if (angular.isObject(editSexos)) {
+            angular.copy(editSexos, $scope.sexo);
           }
         }
 
@@ -75,7 +75,7 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
     });
   };
 
-  $scope.delete = function (size, backdrop, delGenero) {
+  $scope.delete = function (size, backdrop, delSexo) {
     backdrop = backdrop ? backdrop : true;
     var modalInstance = $modal.open({
       templateUrl: 'views/shared/confirm-delete.html',
@@ -83,13 +83,13 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
       backdrop: backdrop,
       controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 
-        if (angular.isObject(delGenero)) {
-          $scope.message = 'Está seguro de que desea eliminar el genero';
-          $scope.description = delGenero.nombreGenero;
+        if (angular.isObject(delSexo)) {
+          $scope.message = 'Está seguro de que desea eliminar el sexo';
+          $scope.description = delSexo.nombreSexo;
         }
 
         $scope.ok = function () {
-          confirmDelete($scope, delGenero.idGenero);
+          confirmDelete($scope, delSexo.idSexo);
         };
 
         $scope.cancel = function () {
@@ -99,9 +99,9 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
     });
   };
 
-  function loadAllGenders (){
-    PerfilesSvc.getGenders().then(function(response){
-      $scope.perfiles = response;
+  function loadAllAnimalGenders (){
+    SexosSvc.getAnimalGenders().then(function(response){
+      $scope.sexos = response;
 
       if (!response.status) {
         infoMessage(response.message, 'growl-warning', 'warning');
@@ -111,18 +111,18 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
       infoMessage('No se ha podido establecer conexión con el servidor, intente más tarde!...', 'growl-danger', 'danger');
     });
   };
-  loadAllGenders();
+  loadAllAnimalGenders();
 
   function save($modalScope) {
     //scope from modal
     
-    $scope.perfiles = new ResponseLm();
+    $scope.sexos = new ResponseLm();
 
-    PerfilesSvc.save($modalScope.genero, $modalScope.action).then(function(response){
-      $scope.perfiles = response;
+    SexosSvc.save($modalScope.sexo, $modalScope.action).then(function(response){
+      $scope.sexos = response;
 
       if (!response.status) {
-        $scope.perfiles.status = true;
+        $scope.sexos.status = true;
         infoMessage(response.message, 'growl-warning', 'warning');
 
       } else {
@@ -143,18 +143,18 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
 
   function clean($scope) {
     //scope from modal    
-    $scope.genero = new Genero();
+    $scope.sexo = new Sexo();
   };
 
   function confirmDelete($modalScope, id) {
 
-    $scope.perfiles = new ResponseLm();
+    $scope.sexos = new ResponseLm();
 
-    PerfilesSvc.delete(id).then(function (response) {
-      $scope.perfiles = response;
+    SexosSvc.delete(id).then(function (response) {
+      $scope.sexos = response;
 
       if (!response.status) {
-        $scope.perfiles.status = true;
+        $scope.sexos.status = true;
         infoMessage(response.message, 'growl-warning', 'warning');
 
       } else {
@@ -175,7 +175,7 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
 
   function infoMessage(text, class_name, image) {
     jQuery.gritter.add({
-      title: 'Servicio Géneros',
+      title: 'Servicio Sexos',
       text: text,
       class_name: class_name, //'growl-primary'
       image: 'images/' + image + '.png',
@@ -189,10 +189,10 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
 page.config(['$stateProvider', function($stateProvider) {
 
   $stateProvider
-  .state('masters.profiles', {
-    url: '/perfiles',
-    templateUrl: 'views/masters/perfiles.html',
-    controller: 'PerfilesCtrl'
+  .state('masters.animalGenders', {
+    url: '/sexos',
+    templateUrl: 'views/masters/sexos.html',
+    controller: 'SexosCtrl'
   });
 
 }]);
