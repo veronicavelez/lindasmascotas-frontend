@@ -2,20 +2,20 @@
 
 /**
 * @ngdoc function
-* @name mmStoreStatesSvc.service:StoreStatesSvc
+* @name TipoSangreSvc.service:TipoSangreSvc
 * @description
-* # StoreStatesSvc
+* # TipoSangreSvc
 * Service of the modyMarcaApp
 */
 
-var service = angular.module('mmStoreStatesSvc', []);
+var service = angular.module('TipoSangreSvc', []);
 
-service.factory('StoreStatesSvc', ['$http','$q','$sce',function($http, $q, $sce){
+service.factory('TipoSangreSvc', ['$http','$q','$sce',function($http, $q, $sce){
     
     var self = {
-        url: 'http://localhost:8084/ModyMarcaBusinness/rest/storestates',
+        url: 'http://localhost:8084/LindasMascotas/rest/tipossangre',
 
-        getStates: function () {
+        getBloodTypes: function () {
             var d = $q.defer();
             
             $http.get($sce.trustAsResourceUrl(self.url))
@@ -30,11 +30,11 @@ service.factory('StoreStatesSvc', ['$http','$q','$sce',function($http, $q, $sce)
             return d.promise;
         },
 
-        save: function (estado, accion) {
+        save: function (tipoSangre, accion) {
             var d = $q.defer();
 
             if (accion === 'create') {
-                $http.post($sce.trustAsResourceUrl(self.url), JSON.stringify(estado))
+                $http.post($sce.trustAsResourceUrl(self.url), JSON.stringify(tipoSangre))
                     .then(function (response) {
 
                         return d.resolve(response.data);
@@ -44,7 +44,7 @@ service.factory('StoreStatesSvc', ['$http','$q','$sce',function($http, $q, $sce)
                     });
 
             } else {
-                $http.put($sce.trustAsResourceUrl(self.url), JSON.stringify(estado))
+                $http.put($sce.trustAsResourceUrl(self.url), JSON.stringify(tipoSangre))
                     .then(function (response) {
 
                         return d.resolve(response.data);
@@ -69,7 +69,7 @@ service.factory('StoreStatesSvc', ['$http','$q','$sce',function($http, $q, $sce)
                 });
 
             return d.promise;
-        }
+        },
     };
 
     return self;

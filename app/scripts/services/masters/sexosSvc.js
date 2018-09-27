@@ -2,20 +2,20 @@
 
 /**
 * @ngdoc function
-* @name mmPettyCashFlowSvc.service:PettyCashFlowSvc
+* @name SexosSvc.service:SexosSvc
 * @description
-* # PettyCashFlowSvc
+* # SexosSvc
 * Service of the modyMarcaApp
 */
 
-var service = angular.module('mmPettyCashFlowSvc', []);
+var service = angular.module('SexosSvc', []);
 
-service.factory('PettyCashFlowSvc', ['$http','$q','$sce','PettyCashStatesSvc',function($http, $q, $sce,PettyCashStatesSvc){
+service.factory('SexosSvc', ['$http','$q','$sce',function($http, $q, $sce){
     
     var self = {
-        url: 'http://localhost:8084/ModyMarcaBusinness/rest/pettycashflow',
+        url: 'http://localhost:8084/LindasMascotas/rest/sexos',
 
-        getFlows: function () {
+        getAnimalGenders: function () {
             var d = $q.defer();
             
             $http.get($sce.trustAsResourceUrl(self.url))
@@ -30,11 +30,11 @@ service.factory('PettyCashFlowSvc', ['$http','$q','$sce','PettyCashStatesSvc',fu
             return d.promise;
         },
 
-        save: function (flujo, accion) {
+        save: function (sexo, accion) {
             var d = $q.defer();
 
             if (accion === 'create') {
-                $http.post($sce.trustAsResourceUrl(self.url), JSON.stringify(flujo))
+                $http.post($sce.trustAsResourceUrl(self.url), JSON.stringify(sexo))
                     .then(function (response) {
 
                         return d.resolve(response.data);
@@ -44,7 +44,7 @@ service.factory('PettyCashFlowSvc', ['$http','$q','$sce','PettyCashStatesSvc',fu
                     });
 
             } else {
-                $http.put($sce.trustAsResourceUrl(self.url), JSON.stringify(flujo))
+                $http.put($sce.trustAsResourceUrl(self.url), JSON.stringify(sexo))
                     .then(function (response) {
 
                         return d.resolve(response.data);
@@ -70,19 +70,6 @@ service.factory('PettyCashFlowSvc', ['$http','$q','$sce','PettyCashStatesSvc',fu
 
             return d.promise;
         },
-
-        getPettyCashStates: function(){
-            var d = $q.defer();
-
-            PettyCashStatesSvc.getStates().then(function (response) {
-                    return d.resolve(response);
-                })
-                .catch(function (response) {
-                    d.reject();
-                });
-
-            return d.promise;
-        }
     };
 
     return self;
