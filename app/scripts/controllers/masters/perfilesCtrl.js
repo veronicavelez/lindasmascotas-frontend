@@ -48,7 +48,7 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
       backdrop: backdrop,
       controller: ['$scope', '$modalInstance', function($scope, $modalInstance){
         $scope.action = action;
-        $scope.genero = new Genero();
+        $scope.perfil = new Perfil();
 
         if (action === 'create') {
           $scope.modalTittle = 'Registro';
@@ -56,7 +56,7 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
           $scope.modalTittle = 'Edición';
 
           if (angular.isObject(editPerfiles)) {
-            angular.copy(editPerfiles, $scope.genero);
+            angular.copy(editPerfiles, $scope.perfil);
           }
         }
 
@@ -84,7 +84,7 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
       controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 
         if (angular.isObject(delGenero)) {
-          $scope.message = 'Está seguro de que desea eliminar el genero';
+          $scope.message = 'Está seguro de que desea eliminar el perfil';
           $scope.description = delGenero.nombreGenero;
         }
 
@@ -99,8 +99,8 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
     });
   };
 
-  function loadAllGenders (){
-    PerfilesSvc.getGenders().then(function(response){
+  function loadAllProfiles (){
+    PerfilesSvc.getProfiles().then(function(response){
       $scope.perfiles = response;
 
       if (!response.status) {
@@ -111,14 +111,14 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
       infoMessage('No se ha podido establecer conexión con el servidor, intente más tarde!...', 'growl-danger', 'danger');
     });
   };
-  loadAllGenders();
+  loadAllProfiles();
 
   function save($modalScope) {
     //scope from modal
     
     $scope.perfiles = new ResponseLm();
 
-    PerfilesSvc.save($modalScope.genero, $modalScope.action).then(function(response){
+    PerfilesSvc.save($modalScope.perfil, $modalScope.action).then(function(response){
       $scope.perfiles = response;
 
       if (!response.status) {
@@ -143,7 +143,7 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
 
   function clean($scope) {
     //scope from modal    
-    $scope.genero = new Genero();
+    $scope.perfil = new Perfil();
   };
 
   function confirmDelete($modalScope, id) {
@@ -175,7 +175,7 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
 
   function infoMessage(text, class_name, image) {
     jQuery.gritter.add({
-      title: 'Servicio Géneros',
+      title: 'Servicio Perfiles',
       text: text,
       class_name: class_name, //'growl-primary'
       image: 'images/' + image + '.png',
