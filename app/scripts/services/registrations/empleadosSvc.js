@@ -75,6 +75,22 @@ service.factory('EmpleadosSvc', ['$http','$q','$sce','BarriosSvc','GenerosSvc','
             return d.promise;
         }, 
 
+    
+        consultarEmpleado: function (idEmpleado) {
+            var d = $q.defer();
+            
+            $http.get($sce.trustAsResourceUrl(self.url + "/consultarEmpleado?idEmpleado=" + idEmpleado))
+                .then(function (response) {
+
+                    return d.resolve(response.data);
+                })
+                .catch(function (response) {
+                    d.reject();
+                });
+
+            return d.promise;
+        },
+
         getNeighborhoods: function(){
             var d = $q.defer();
 
