@@ -37,7 +37,7 @@
                             </label>
                             <div class="col-sm-7" ng-hide="isEdit">
                                 <input type="text" class="form-control input-sm" placeholder="Ingrese número de documento" required 
-                                ng-model="empleado.idEmpleado" ng-only-numbers>
+                                ng-model="empleado.idEmpleado" ng-only-numbers ng-blur="consultarEmpleado()">
                             </div>
                             <div class="col-sm-7" ng-hide="!isEdit">
                                 <label class="control-label">{{empleado.idEmpleado}}</label>
@@ -83,7 +83,7 @@
                                 <span class="asterisk">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <input type="date" class="form-control input-sm" ng-model="empleado.fechaNacimiento"/>
+                                <input type="date" class="form-control input-sm" ng-model="empleado.fechaNacimiento" ng-change="validarFechaNac()"/>
                             </div>
                         </div>
                         <!-- form-group -->
