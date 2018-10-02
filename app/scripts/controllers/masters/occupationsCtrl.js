@@ -117,8 +117,8 @@ page.controller('OccupationsCtrl', ['$scope','$modal','$window','DTOptionsBuilde
     //scope from modal
     
     $scope.cargos = new ResponseLm();
-
-    OccupationsSvc.save($modalScope.ocupacion, $modalScope.action).then(function(response){
+    
+    OccupationsSvc.save($modalScope.cargo, $modalScope.action).then(function(response){
       $scope.cargos = response;
 
       if (!response.status) {
