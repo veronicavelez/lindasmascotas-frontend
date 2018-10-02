@@ -188,7 +188,7 @@ page.controller('VacunasCtrl', ['$scope','$modal','$window','DTOptionsBuilder','
 page.config(['$stateProvider', function($stateProvider) {
 
   $stateProvider
-  .state('masters.vaccines', {
+  .state('masters.vaccine', {
     url: '/vacunas',
     templateUrl: 'views/masters/vacunas.html',
     controller: 'VacunasCtrl'
