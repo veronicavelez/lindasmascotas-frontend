@@ -83,6 +83,23 @@ page.controller('EmpleadosCtrl', ['$scope', '$modal', '$window', 'DTOptionsBuild
                 $scope.getCitiesByDepartments = function () {
                     getCitiesByDepartments($scope);
                 };
+
+                $scope.consultarEmpleado = function (){
+                    let idEmpleado = $scope.empleado.idEmpleado;
+                    consultarEmpleado(idEmpleado);
+                }
+
+                $scope.validarFechaNac = function (){
+                    let fechaAct = new Date((new Date().getFullYear() - 18),11,31);
+                    let fechaNacimiento = $scope.empleado.fechaNacimiento;
+
+                    if (fechaNacimiento > fechaAct) {
+                        infoMessage("No es mayor de edad!", 'growl-warning', 'warning');
+                        $scope.empleado.fechaNacimiento = null;
+                    }
+
+
+                }
             }]
         });
     };
@@ -238,6 +255,20 @@ page.controller('EmpleadosCtrl', ['$scope', '$modal', '$window', 'DTOptionsBuild
         EmpleadosSvc.getCitiesByDepartments(dpto).then(function (response) {
             $modalScope.cities = response;
             if (!response.status) {
+                infoMessage(response.message, 'growl-warning', 'warning');
+            }
+
+        }, function (response) {
+
+            infoMessage('No se ha podido establecer conexión con el servidor, intente más tarde!...', 'growl-danger', 'danger');
+
+        });
+    };
+
+    function consultarEmpleado(idEmpleado) {
+        
+        EmpleadosSvc.consultarEmpleado(idEmpleado).then(function (response) {
+            if (response.status) {
                 infoMessage(response.message, 'growl-warning', 'warning');
             }
 
