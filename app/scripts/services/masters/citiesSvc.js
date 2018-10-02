@@ -85,17 +85,17 @@ service.factory('CitiesSvc', ['$http','$q','$sce','CountriesSvc','DepartmentsSvc
             return d.promise;
         },
 
-        getCitiesByDepartments: function(dpto){
+        getCitiesByDepartments: function(idDepartamento){
             var d = $q.defer();
 
-            $http.post($sce.trustAsResourceUrl(self.url + '/getCitiesByDepartments'), JSON.stringify(dpto))
-                .then(function (response) {
-                    return d.resolve(response.data);
-                })
-                .catch(function (response) {
-                    d.reject();
-                });
-
+            $http.get($sce.trustAsResourceUrl(self.url + '/ciudadespordpto?id=' + idDepartamento))
+            .then(function(res){
+                return d.resolve(res.data);
+            })
+            .catch(function(res){
+                return d.reject(res);
+            });
+            
             return d.promise;
         },
 
