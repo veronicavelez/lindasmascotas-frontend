@@ -95,18 +95,13 @@
             {
                 "state": "registrations.users",
                 "label": "Usuarios del sistema"
-            }
-        ]
-    },
-    {
-        "state": "schedules",
-        "icon": "calendar",
-        "label": "Cronograma de visitas",
-        "children": [
+            },
             {
-                "state": "schedules.activitySchedules",
+                "state": "registrations.activitySchedules",
                 "label": "Agendar Visita"
             }
+
         ]
     }
+    
 ]
