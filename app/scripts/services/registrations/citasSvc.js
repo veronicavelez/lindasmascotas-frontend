@@ -2,15 +2,15 @@
 
 /**
 * @ngdoc function
-* @name mmSchSchedulesSvc.service:SchedulesSvc
+* @name CitasSvc.service:CitasSvc
 * @description
 * # CompaniesSvc
 * Service of the modyMarcaApp
 */
 
-var service = angular.module('mmSchSchedulesSvc', []);
+var service = angular.module('CitasSvc', []);
 
-service.factory('SchedulesSvc', ['$http','$q','$sce', 'UsersSvc', 'StoresSvc', function($http, $q, $sce, UsersSvc, StoresSvc){
+service.factory('CitasSvc', ['$http','$q','$sce',  function($http, $q, $sce,){
     
     var self = {
         url: 'http://localhost:8084/ModyMarcaBusinness/rest/schedules',
@@ -91,25 +91,25 @@ service.factory('SchedulesSvc', ['$http','$q','$sce', 'UsersSvc', 'StoresSvc', f
         getAllAuditorsByCity: function(cityId) {
             var d = $q.defer();
 
-            UsersSvc.getUsersByCity(cityId)
-            .then(function(response){
-                let responseAux = response;
-                let users = new ResponseLm();
+            // UsersSvc.getUsersByCity(cityId)
+            // .then(function(response){
+            //     let responseAux = response;
+            //     let users = new ResponseLm();
 
-                users.status = responseAux.status;
-                users.message = responseAux.message;
+            //     users.status = responseAux.status;
+            //     users.message = responseAux.message;
 
-                responseAux.data.forEach(el => {
-                    if (el.idCargo.nombreCargo.toLowerCase().indexOf('auditor(a)') > -1){
-                        users.data.push(el);
-                    }
-                });
+            //     responseAux.data.forEach(el => {
+            //         if (el.idCargo.nombreCargo.toLowerCase().indexOf('auditor(a)') > -1){
+            //             users.data.push(el);
+            //         }
+            //     });
                 
-                return d.resolve(users);
-            })
-            .catch(function(response){
-                d.reject();
-            });
+            //     return d.resolve(users);
+            // })
+            // .catch(function(response){
+            //     d.reject();
+            // });
 
             return d.promise;
         },
@@ -117,13 +117,13 @@ service.factory('SchedulesSvc', ['$http','$q','$sce', 'UsersSvc', 'StoresSvc', f
         getStoresForSchedules: function(){
             var d = $q.defer();
 
-            StoresSvc.getStoresForSchedules()
-            .then(function(response){
-                return d.resolve(response);
-            })
-            .catch(function(response){
-                d.reject();
-            });
+            // StoresSvc.getStoresForSchedules()
+            // .then(function(response){
+            //     return d.resolve(response);
+            // })
+            // .catch(function(response){
+            //     d.reject();
+            // });
 
             return d.promise;
         }

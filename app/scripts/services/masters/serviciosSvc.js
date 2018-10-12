@@ -10,7 +10,7 @@
 
 var service = angular.module('ServiciosSvc', []);
 
-service.factory('ServiciosSvc', ['$http','$q','$sce',function($http, $q, $sce){
+service.factory('ServiciosSvc', ['$http','$q','$sce','EmpleadosSvc',function($http, $q, $sce, EmpleadosSvc){
     
     var self = {
         url: 'http://localhost:8084/LindasMascotas/rest/servicios',
@@ -70,6 +70,20 @@ service.factory('ServiciosSvc', ['$http','$q','$sce',function($http, $q, $sce){
 
             return d.promise;
         },
+
+        getEmployees: function() {
+            var d = $q.defer();
+
+            EmpleadosSvc.getEmployees().then(function(response){
+                return d.resolve(response);
+
+            }, function(response){
+                d.reject(response);
+
+            });
+
+            return d.promise;
+        }
     };
 
     return self;
