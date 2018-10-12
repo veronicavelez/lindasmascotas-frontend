@@ -47,8 +47,10 @@ page.controller('ServiciosCtrl', ['$scope','$modal','$window','DTOptionsBuilder'
       size: size,
       backdrop: backdrop,
       controller: ['$scope', '$modalInstance', function($scope, $modalInstance){
+        dataForDropDownList($scope);
         $scope.action = action;
         $scope.servicio = new Servicio();
+        $scope.empleado = new Empleado();
 
         if (action === 'create') {
           $scope.modalTittle = 'Registro';
@@ -71,6 +73,29 @@ page.controller('ServiciosCtrl', ['$scope','$modal','$window','DTOptionsBuilder'
         $scope.cancel = function () {
           $modalInstance.close();
         };
+
+        $scope.agregar = function (){
+          let empleado = {};
+          let empleados = [];
+          angular.copy($scope.empleados.data, empleados);
+
+          empleado = empleados.find(e => e.idEmpleado == $scope.empleado.idEmpleado);
+
+          if(empleado !== undefined){
+            let existe = $scope.servicio.empleadosList.find(e => e.idEmpleado == empleado.idEmpleado);
+
+            if(existe === undefined){
+              $scope.servicio.empleadosList.push(empleado);
+              $scope.empleado = new Empleado();
+            }else{
+              infoMessage('No puede agregar el empleado más de una vez!.', 'growl-info', 'info');
+            }
+          }
+        };
+
+        $scope.eliminar = function (index){
+          $scope.servicio.empleadosList.splice(index,1);
+        }
       }]
     });
   };
@@ -96,6 +121,21 @@ page.controller('ServiciosCtrl', ['$scope','$modal','$window','DTOptionsBuilder'
           $modalInstance.close();
         };
       }]
+    });
+  };
+
+  function dataForDropDownList ($modalScope) {
+    ServiciosSvc.getEmployees().then(function(response){
+      $modalScope.empleados = response;
+
+      if (!response.status) {
+        infoMessage(response.message, 'growl-warning', 'warning');
+      }
+
+    }, function(response){
+
+      infoMessage('No se ha podido establecer conexión con el servidor, intente más tarde!...', 'growl-danger', 'danger');
+
     });
   };
 

@@ -106,6 +106,7 @@ page.controller('MascotasCtrl', ['$scope', '$modal', '$window', 'DTOptionsBuilde
             $scope.mascotas = response;
 
             if (!response.status) {
+                $scope.mascotas.status = true;
                 infoMessage(response.message, 'growl-warning', 'warning');
             }
 

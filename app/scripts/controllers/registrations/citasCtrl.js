@@ -2,13 +2,13 @@
 
 /**
 * @ngdoc function
-* @name mmSchSchedules.controller:SchedulesCtrl
+* @name ConfigCitas.controller:ConfigCitas
 * @description
 * # CompaniesCtrl
 * Controller of the modyMarcaApp
 */
 
-var page = angular.module('mmSchSchedules', ['jcs-autoValidate', 'datatables', 'ngResource', 'ui.calendar']);
+var page = angular.module('ConfigCitas', ['jcs-autoValidate', 'datatables', 'ngResource', 'ui.calendar']);
 
 angular.module('jcs-autoValidate')
   .run([
@@ -23,15 +23,15 @@ angular.module('jcs-autoValidate')
     }
   ]);
 
-page.controller('SchedulesCtrl', ['$scope', '$modal', '$window', 'uiCalendarConfig', 'SchedulesSvc', function ($scope, $modal, $window, uiCalendarConfig, SchedulesSvc) {
+page.controller('CitasCtrl', ['$scope', '$modal', '$window', 'uiCalendarConfig', 'CitasSvc', function ($scope, $modal, $window, uiCalendarConfig, CitasSvc) {
 
   // Page header info (views/layouts/pageheader.html)
   $window.scrollTo(0, 0);
   $scope.pageicon = 'fa fa-calendar';
   $scope.pagetitle = 'Agendar Visita';
-  $scope.parentpages = [{ 'url': 'schedules', 'pagetitle': 'Cronograma de visitas' }];
+  $scope.parentpages = [{ 'url': 'registrations', 'pagetitle': 'Cronograma de visitas' }];
 
-  $scope.schedule = new Cronograma();
+  //$scope.schedule = new Cronograma();
   $scope.schedules = new ResponseLm();
   $scope.auditors = new ResponseLm();
   $scope.stores = new ResponseLm();
@@ -80,44 +80,44 @@ page.controller('SchedulesCtrl', ['$scope', '$modal', '$window', 'uiCalendarConf
   configCalendar();
 
   function loadAllSchedules() {
-    SchedulesSvc.getSchedules().then(function (response) {
-      $scope.schedules = response;
+    // CitasSvc.getSchedules().then(function (response) {
+    //   $scope.schedules = response;
 
-      if (!response.status) {
-        infoMessage(response.message, 'growl-warning', 'warning');
-      } else {
-        loadEventSource(response);
-      }
+    //   if (!response.status) {
+    //     infoMessage(response.message, 'growl-warning', 'warning');
+    //   } else {
+    //     loadEventSource(response);
+    //   }
 
-    }, function () {
-      $scope.schedules.status = true;
-      infoMessage('No se ha podido establecer conexión con el servidor, intente más tarde!...', 'growl-danger', 'danger');
-    });
+    // }, function () {
+    //   $scope.schedules.status = true;
+    //   infoMessage('No se ha podido establecer conexión con el servidor, intente más tarde!...', 'growl-danger', 'danger');
+    // });
   };
   loadAllSchedules();
 
   function loadStoreWithoutVisits() {
-    SchedulesSvc.getStoreWithoutVisits().then(function (response) {
-      if (!response.status) {
-        infoMessage(response.message, 'growl-warning', 'warning');
-      } else {
+    // CitasSvc.getStoreWithoutVisits().then(function (response) {
+    //   if (!response.status) {
+    //     infoMessage(response.message, 'growl-warning', 'warning');
+    //   } else {
 
-        response.data.forEach(el => {
-          for (let i = 0; i < $scope.stores.data.length; i++ ) {
-            if (el.posTienda === $scope.stores.data[i].posTienda) {
-              el.tiendas = $scope.stores.data[i];
-              break;
-            }
-          }
-        });
+    //     response.data.forEach(el => {
+    //       for (let i = 0; i < $scope.stores.data.length; i++ ) {
+    //         if (el.posTienda === $scope.stores.data[i].posTienda) {
+    //           el.tiendas = $scope.stores.data[i];
+    //           break;
+    //         }
+    //       }
+    //     });
 
-        $scope.storeWithoutVisits = response;
-      }
+    //     $scope.storeWithoutVisits = response;
+    //   }
 
-    }, function () {
-      $scope.storeWithoutVisits.status = true;
-      infoMessage('No se ha podido establecer conexión con el servidor, intente más tarde!...', 'growl-danger', 'danger');
-    });
+    // }, function () {
+    //   $scope.storeWithoutVisits.status = true;
+    //   infoMessage('No se ha podido establecer conexión con el servidor, intente más tarde!...', 'growl-danger', 'danger');
+    // });
   };
   //loadStoreWithoutVisits();
 
@@ -144,7 +144,7 @@ page.controller('SchedulesCtrl', ['$scope', '$modal', '$window', 'uiCalendarConf
   };
 
   function dataForDropDownList(posTienda, idPersonal) {
-    SchedulesSvc.getAllAuditorsByCity('').then(function (response) {
+    CitasSvc.getAllAuditorsByCity('').then(function (response) {
       $scope.auditors = response;
 
       if (!response.status) {
@@ -167,7 +167,7 @@ page.controller('SchedulesCtrl', ['$scope', '$modal', '$window', 'uiCalendarConf
 
     });
 
-    SchedulesSvc.getStoresForSchedules().then(function (response) {
+    CitasSvc.getStoresForSchedules().then(function (response) {
       $scope.stores = response;
 
       if (!response.status) {
@@ -200,7 +200,7 @@ page.controller('SchedulesCtrl', ['$scope', '$modal', '$window', 'uiCalendarConf
     let scheduleAux = JSON.parse(angular.toJson($scope.schedule));
     scheduleAux.fechaVisita = new Date(parseInt(fechaVisita[2]), parseInt(fechaVisita[1]) - 1, parseInt(fechaVisita[0]));
 
-    SchedulesSvc.save(JSON.parse(angular.toJson(scheduleAux)), action).then(function (response) {
+    CitasSvc.save(JSON.parse(angular.toJson(scheduleAux)), action).then(function (response) {
       $scope.schedules = response;
 
       if (!response.status) {
@@ -229,7 +229,7 @@ page.controller('SchedulesCtrl', ['$scope', '$modal', '$window', 'uiCalendarConf
   function openModal(size, backdrop, event) {
     backdrop = backdrop ? backdrop : true;
     var modalInstance = $modal.open({
-      templateUrl: 'views/schedules/modal-forms/schedule-form.html',
+      templateUrl: 'views/registrations/modal-forms/citas-form.html',
       size: size,
       backdrop: backdrop,
       controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
@@ -266,14 +266,14 @@ page.controller('SchedulesCtrl', ['$scope', '$modal', '$window', 'uiCalendarConf
   };
 
   function editSchedule($modalScope) {
-    $scope.schedule = new Cronograma();
+    //$scope.schedule = new Cronograma();
 
-    $scope.schedule.idCronograma = $modalScope.event.eventId;
-    $scope.schedule.posTienda.posTienda = $modalScope.event.posTienda.posTienda;
-    $scope.schedule.idAuditor.idPersonal = $modalScope.event.idAuditor;
-    $scope.schedule.fechaVisita = $modalScope.event.dateDay;
+    // $scope.schedule.idCronograma = $modalScope.event.eventId;
+    // $scope.schedule.posTienda.posTienda = $modalScope.event.posTienda.posTienda;
+    // $scope.schedule.idAuditor.idPersonal = $modalScope.event.idAuditor;
+    // $scope.schedule.fechaVisita = $modalScope.event.dateDay;
 
-    dataForDropDownList($scope.schedule.posTienda.posTienda, $scope.schedule.idAuditor.idPersonal);
+    // dataForDropDownList($scope.schedule.posTienda.posTienda, $scope.schedule.idAuditor.idPersonal);
   };
 
   function cancelSchedule(size, backdrop, $modalScope) {
@@ -305,7 +305,7 @@ page.controller('SchedulesCtrl', ['$scope', '$modal', '$window', 'uiCalendarConf
 
     $scope.schedules = new ResponseLm();
 
-    SchedulesSvc.delete(id).then(function (response) {
+    CitasSvc.delete(id).then(function (response) {
       $scope.schedules = response;
 
       if (!response.status) {
@@ -327,7 +327,7 @@ page.controller('SchedulesCtrl', ['$scope', '$modal', '$window', 'uiCalendarConf
   };
 
   $scope.clean = function (frmSchedule) {
-    $scope.schedule = new Cronograma();
+    //$scope.schedule = new Cronograma();
     $scope.auditors = new ResponseLm();
     $scope.stores = new ResponseLm();
     frmSchedule.$setPristine();
@@ -347,15 +347,13 @@ page.controller('SchedulesCtrl', ['$scope', '$modal', '$window', 'uiCalendarConf
 
 }]);
 
+
 page.config(['$stateProvider', function ($stateProvider) {
+
   $stateProvider
-    .state('schedules', {
-      url: '/schedules',
-      template: '<ui-view/>'
-    })
-    .state('schedules.activitySchedules', {
-      url: '/schedules',
-      templateUrl: 'views/schedules/schedules.html',
-      controller: 'SchedulesCtrl'
-    });
+  .state('registrations.activitySchedules', {
+          url: '/citas',
+          templateUrl: 'views/registrations/citas.html',
+          controller: 'CitasCtrl'
+      });
 }]);
