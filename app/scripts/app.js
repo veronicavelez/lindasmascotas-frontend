@@ -26,7 +26,7 @@ var lindasmascotas = angular.module('lindasmascotasApp', [
   'ConfigPerfiles'    , 'ConfigProductos'  , 'ConfigServicios' ,
   'ConfigSexos'            , 'ConfigTipoContratos'       , 'ConfigTipoSangre'         ,
   'ConfigVacunas'               , 'ConfigEmpleados'           , 'ConfigMascotas'  ,
-  'ConfigPropietarios'             ,
+  'ConfigPropietarios'             , 'ConfigCitas' ,
   
   
   'chainDashboard'      , 'chainMessages'       , 'chainElemAlerts'  ,
@@ -45,7 +45,7 @@ var lindasmascotas = angular.module('lindasmascotasApp', [
   'PerfilesSvc'       , 'ProductosSvc'     , 'ServiciosSvc'     ,
   'SexosSvc'         , 'TipoContratosSvc'    , 'TipoSangreSvc'       ,
   'VacunasSvc'            , 'EmpleadosSvc'        , 'MascotasSvc',
-  'PropietariosSvc'
+  'PropietariosSvc' , 'CitasSvc'
 ]);
 
 lindasmascotas.controller('MainCtrl', ['$scope', '$http', '$state', function ($scope, $http, $state) {

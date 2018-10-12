@@ -68,7 +68,9 @@ body {
 a {
     outline: none !important;
 }
-
+a:hover{
+  cursor: pointer;  
+}
 a:hover,
 a:active,
 a:focus {
