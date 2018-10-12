@@ -6,16 +6,18 @@
 
     <form name="frmAnimalGenders" ng-submit="save()" novalidate="novalidate">
         <div class="row mb10">
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Sexo
-                    <span class="asterisk">*</span>
-                </label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" placeholder="Ingrese el sexo" required 
-                    ng-model="sexo.nombreSexo" ng-uppercase />
+            <div class="col-sm-9 col-sm-offset-3">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Sexo
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el sexo" required 
+                        ng-model="sexo.nombreSexo" ng-uppercase />
+                    </div>
                 </div>
+                <!-- form-group -->
             </div>
-            <!-- form-group -->
         </div>
         <!-- row -->
 

@@ -6,16 +6,18 @@
 
     <form name="frmAgreementTypes" ng-submit="save()" novalidate="novalidate">
         <div class="row mb10">
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Nombre Tipo Contrato
-                    <span class="asterisk">*</span>
-                </label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" placeholder="Ingrese el tipo de contrato" required 
-                    ng-model="tipoContra.nombreContrato" ng-uppercase/>
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label">Tipo de Contrato
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el tipo de contrato" required 
+                        ng-model="tipoContra.nombreContrato" ng-uppercase/>
+                    </div>
                 </div>
+                <!-- form-group -->
             </div>
-            <!-- form-group -->
         </div>
         <!-- row -->
 

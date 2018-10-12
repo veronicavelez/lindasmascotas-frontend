@@ -6,13 +6,13 @@
 
     <form name="frmEmployees" ng-submit="save()" novalidate="novalidate">
         <ul class="nav nav-tabs">
-            <li class="active"><a data-target="#home" data-toggle="tab"><strong>Datos Personales</strong></a></li>
-            <li><a data-target="#profile" data-toggle="tab"><strong>Datos de Contacto</strong></a></li>
-            <li><a data-target="#about" data-toggle="tab"><strong>Datos Empresariales</strong></a></li>
+            <li class="active"><a data-target="#personal-info" data-toggle="tab"><strong>Datos Personales</strong></a></li>
+            <li><a class="tab-continue-contact" data-target="#contact-info" data-toggle="tab"><strong>Datos de Contacto</strong></a></li>
+            <li><a class="tab-continue-company"data-target="#company-info" data-toggle="tab"><strong>Datos Empresariales</strong></a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content mb30">
-            <div class="tab-pane active" id="home">
+            <div class="tab-pane active" id="personal-info">
                 <div class="row">
                     <div class="col-sm-6 col-md-6 col-lg-6">
                         <div class="form-group">
@@ -140,9 +140,16 @@
                         <!-- form-group -->
                     </div>
                     <!-- col-sm-6 -->
-                </div>                
+                </div>
+                <div class="row">
+                    <div class="text-center">
+                        <a class="btn btn-primary btn-metro btn-xs mr5 continue-contact" data-target="#contact-info" data-toggle="tab"><i class="fa fa-hand-o-right"></i> Continuar</a>
+                        <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()">
+                            <i class="fa fa-eraser"></i> Limpiar</button>
+                    </div>
+                </div>              
             </div><!-- tab-pane -->
-            <div class="tab-pane" id="profile">
+            <div class="tab-pane" id="contact-info">
                 <div class="row">
                     <div class="col-sm-6 col-md-6 col-md-lg-6">
                         <div class="form-group">
@@ -268,8 +275,15 @@
                     </div>
                     <!-- col-sm-6 -->
                 </div>
+                <div class="row">
+                    <div class="text-center">
+                        <a class="btn btn-primary btn-metro btn-xs mr5 continue-company" data-target="#company-info" data-toggle="tab"><i class="fa fa-hand-o-right"></i> Continuar</a>
+                        <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()">
+                            <i class="fa fa-eraser"></i> Limpiar</button>
+                    </div>
+                </div>
             </div><!-- tab-pane -->
-            <div class="tab-pane" id="about">
+            <div class="tab-pane" id="company-info">
                 <div class="row">
                     <div class="col-sm-6 col-md-6 col-md-lg-6">
                         <div class="form-group">
@@ -366,16 +380,16 @@
                     <!-- col-sm-6 -->
                 </div>
                 <!-- row -->
+                <div class="row">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success btn-metro btn-xs mr5">
+                            <i class="fa fa-save"></i> Guardar</button>
+                        <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()">
+                            <i class="fa fa-eraser"></i> Limpiar</button>
+                    </div>
+                </div>
             </div><!-- tab-pane -->
         </div><!-- tab-content -->
-        <div class="row">
-            <div class="text-center">
-                <button type="submit" class="btn btn-success btn-metro btn-xs mr5">
-                    <i class="fa fa-save"></i> Guardar</button>
-                <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()">
-                    <i class="fa fa-eraser"></i> Limpiar</button>
-            </div>
-        </div>
     </form>
 
 </div>
@@ -384,3 +398,12 @@
     <button class="btn btn-default btn-metro btn-xs" ng-click="cancel()">Cerrar</button>
     <!-- <button class="btn btn-success btn-metro btn-xs" ng-click="ok()">Guardar</button> -->
 </div>
+
+<script>
+    $(".continue-contact").on('click',function(){
+       $('.tab-continue-contact').click(); 
+    });
+    $(".continue-company").on('click',function(){
+       $('.tab-continue-company').click(); 
+    });
+</script>

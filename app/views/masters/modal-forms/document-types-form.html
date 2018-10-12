@@ -6,16 +6,18 @@
 
     <form name="frmDocumentTypes" ng-submit="save()" novalidate="novalidate">
         <div class="row mb10">
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Tipo de documento
-                    <span class="asterisk">*</span>
-                </label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" placeholder="Ingrese el tipo de documento" required 
-                    ng-model="docType.nombreTipo" />
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label">Tipo de documento
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el tipo de documento" required 
+                        ng-model="docType.nombreTipo" />
+                    </div>
                 </div>
-            </div>
-            <!-- form-group -->
+                <!-- form-group -->
+            </div>    
         </div>
         <!-- row -->
 

@@ -6,16 +6,18 @@
 
     <form name="frmProfiles" ng-submit="save()" novalidate="novalidate">
         <div class="row mb10">
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Perfil
-                    <span class="asterisk">*</span>
-                </label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" placeholder="Ingrese el perfil" required 
-                    ng-model="perfil.nombrePerfil" ng-uppercase/>
+            <div class="col-sm-9 col-sm-offset-3">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Perfil
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el perfil" required 
+                        ng-model="perfil.nombrePerfil" ng-uppercase/>
+                    </div>
                 </div>
+                <!-- form-group -->
             </div>
-            <!-- form-group -->
         </div>
         <!-- row -->
 

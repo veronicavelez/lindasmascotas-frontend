@@ -6,16 +6,18 @@
 
     <form name="frmEspecies" ng-submit="save()" novalidate="novalidate">
         <div class="row">
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Nombre Especie
-                    <span class="asterisk">*</span>
-                </label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" placeholder="Ingrese el nombre la especie" required 
-                    ng-model="especie.nombreEspecie" ng-uppercase/>
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label">Nombre Especie
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el nombre la especie" required 
+                        ng-model="especie.nombreEspecie" ng-uppercase/>
+                    </div>
                 </div>
+                <!-- form-group -->
             </div>
-            <!-- form-group -->
         </div>
         <!-- row -->
 

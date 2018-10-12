@@ -5,47 +5,95 @@
 <div class="modal-body">
 
     <form name="frmServices" ng-submit="save()" novalidate="novalidate">
-        <div class="row mb10">
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Código Servicio
-                    <span class="asterisk">*</span>
-                </label>
-                <div class="col-sm-9">
-                    <input class="form-control input-sm" placeholder="Ingrese el código del servicio" required 
-                    ng-model="servicio.idServicio" />
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label">Código Servicio
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <input class="form-control input-sm" placeholder="Ingrese el código del servicio" required 
+                        ng-model="servicio.idServicio" />
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Nombre Servicio
-                    <span class="asterisk">*</span>
-                </label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" placeholder="Ingrese el nombre del servicio" required 
-                    ng-model="servicio.nombreServicio" ng-uppercase/>
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label">Nombre Servicio
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el nombre del servicio" required 
+                        ng-model="servicio.nombreServicio" ng-uppercase/>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Descripción Servicio
-                       <span class="asterisk">*</span>
-                </label>
-                <div class="col-sm-9">
-                    <textarea type="text" class="form-control input-sm" placeholder="Ingrese la descripción del servicio" required
-                    ng-model="servicio.descripcionServicio" />
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label">Precio Servicio
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <input  class="form-control input-sm" placeholder="Ingrese el precio del servicio" required 
+                        ng-model="servicio.precioServicio " />
+                    </div>
+                </div>
+                <!-- form-group -->
+            </div>
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label">Descripción Servicio
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <textarea type="text" class="form-control input-sm" placeholder="Ingrese la descripción del servicio" required
+                        ng-model="servicio.descripcionServicio" />
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Precio Servicio
-                    <span class="asterisk">*</span>
-                </label>
-                <div class="col-sm-9">
-                    <input  class="form-control input-sm" placeholder="Ingrese el precio del servicio" required 
-                    ng-model="servicio.precioServicio | currency" />
-                </div>
-            </div>
-            
-            <!-- form-group -->
         </div>
         <!-- row -->
+
+        <div class="alert alert-info" ng-hide="servicio.empleadosList.length > 0">
+            Debe agregar al menos un empleado.
+        </div>
+
+        <div class="row mb10">
+            <div class="table-responsive col-sm-10 col-sm-offset-1">
+                <table class="table mb30">
+                  <thead>
+                    <tr>
+                      <th class="col-xs-6 col-sm-3 col-md-3 col-lg-3">Empleado</th>
+                      <th class="col-xs-1 col-sm-1 col-md-2 col-lg-2 text-center">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <td>
+                            <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un empleado..." class="width100p"
+                            ng-model="empleado.idEmpleado" >
+                                <option value=""></option>
+                                <option ng-repeat="emp in empleados.data" value="{{emp.idEmpleado}}">{{emp.nombreEmpleado}} {{emp.apellidosEmpleado}}</option>
+                            </select>
+                        </td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-default btn-metro btn-xs" ng-click="agregar()">
+                                <i class="fa fa-plus"></i> Agregar
+                            </button>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="emp in servicio.empleadosList">
+                      <td>{{emp.nombreEmpleado}} {{emp.apellidosEmpleado}}</td>
+                      <td class="table-action text-center">
+                        <button class="btn btn-danger btn-metro btn-xs" ng-click="eliminar($index)">
+                          <i class="fa fa-trash-o"></i> Eliminar</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- table-responsive -->
+        </div>
 
         <div class="row">
             <div class="col-sm-offset-4">
@@ -53,6 +101,7 @@
                 <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()"><i class="fa fa-eraser"></i> Limpiar</button>
             </div>
         </div>
+        
     </form>
 
 </div>

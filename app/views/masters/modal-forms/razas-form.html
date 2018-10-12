@@ -6,31 +6,33 @@
 
     <form name="frmRazas" ng-submit="save()" novalidate="novalidate">
         <div class="row mb10">
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Especie
-                    <span class="asterisk">*</span>
-                </label>
-                <div class="col-sm-9">
-                    <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione una especie..." class="width100p" required
-                    ng-model="raza.idEspecie.idEspecie" >
-                        <option value=""></option>
-                        <option ng-repeat="esp in especies.data" value="{{esp.idEspecie}}">{{esp.nombreEspecie}}</option>
-                    </select>
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Especie
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                        <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione una especie..." class="width100p" required
+                        ng-model="raza.idEspecie.idEspecie" >
+                            <option value=""></option>
+                            <option ng-repeat="esp in especies.data" value="{{esp.idEspecie}}">{{esp.nombreEspecie}}</option>
+                        </select>
+                    </div>
                 </div>
+                <!-- form-group -->
             </div>
-            <!-- form-group -->
-        </div>
-        <div class="row">
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Nombre Raza
-                    <span class="asterisk">*</span>
-                </label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" placeholder="Ingrese el nombre de la raza" required 
-                    ng-model="raza.nombreRaza" ng-uppercase/>
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Raza
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el nombre de la raza" required 
+                        ng-model="raza.nombreRaza" ng-uppercase/>
+                    </div>
                 </div>
+                <!-- form-group -->
             </div>
-            <!-- form-group -->
         </div>
         <!-- row -->
 

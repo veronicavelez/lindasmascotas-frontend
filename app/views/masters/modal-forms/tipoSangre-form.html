@@ -6,16 +6,18 @@
 
     <form name="frmBloodTypes" ng-submit="save()" novalidate="novalidate">
         <div class="row mb10">
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Nombre Tipo Sangre
-                    <span class="asterisk">*</span>
-                </label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" placeholder="Ingrese el tipo de sangre" required 
-                    ng-model="tipoSangre.nombreTipoSangre" ng-uppercase />
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label">Tipo de Sangre
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control input-sm" placeholder="Ingrese el tipo de sangre" required 
+                        ng-model="tipoSangre.nombreTipoSangre" ng-uppercase />
+                    </div>
                 </div>
-            </div>
-            <!-- form-group -->
+                <!-- form-group -->
+            </div>    
         </div>
         <!-- row -->
 
