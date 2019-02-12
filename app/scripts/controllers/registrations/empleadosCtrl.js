@@ -51,6 +51,27 @@ page.controller('EmpleadosCtrl', ['$scope', '$modal', '$window', 'DTOptionsBuild
                 $scope.action = action;
                 $scope.empleado = new Empleado();
 
+                setTimeout(() => {
+                    let datePickerBirthDate = angular.element('#birthDate');
+                    let datePickerInitDate = angular.element('#initDate');
+                    let datePickerFinishDate = angular.element('#finishDate');
+                    
+                    datePickerBirthDate.datepicker({
+                        changeMonth: true,
+                        changeYear: true
+                    });
+
+                    datePickerInitDate.datepicker({
+                        changeMonth: true,
+                        changeYear: true
+                    });
+
+                    datePickerFinishDate.datepicker({
+                        numberOfMonths: 2,
+                        minDate: $scope.empleado.fechaContratoInicial
+                    });
+                }, 500);
+
                 if (action === 'create') {
                     $scope.modalTittle = 'Registro';
                 } else if (action === 'edit') {
@@ -58,13 +79,23 @@ page.controller('EmpleadosCtrl', ['$scope', '$modal', '$window', 'DTOptionsBuild
                     $scope.modalTittle = 'Edición';
 
                     if (angular.isObject(editEmpleado)) {
+                        editEmpleado.fechaNacimiento = dateFormat.ToString(editEmpleado.fechaNacimiento,false);
+                        editEmpleado.fechaContratoInicial = dateFormat.ToString(editEmpleado.fechaContratoInicial,false);
+                        editEmpleado.fechaContratoFinal = dateFormat.ToString(editEmpleado.fechaContratoFinal,false);
+
                         angular.copy(editEmpleado, $scope.empleado);
                         getDepartmentsByCounty($scope);
                         getCitiesByDepartments($scope);
                     }
                 }
 
+
                 $scope.save = function () {
+                    
+                    $scope.empleado.fechaNacimiento = dateFormat.ToDate($scope.empleado.fechaNacimiento,false);
+                    $scope.empleado.fechaContratoInicial = dateFormat.ToDate($scope.empleado.fechaContratoInicial,false);
+                    $scope.empleado.fechaContratoFinal = dateFormat.ToDate($scope.empleado.fechaContratoFinal,false);
+
                     save($scope);
                 };
 
@@ -254,6 +285,7 @@ page.controller('EmpleadosCtrl', ['$scope', '$modal', '$window', 'DTOptionsBuild
 
         EmpleadosSvc.getCitiesByDepartments(dpto).then(function (response) {
             $modalScope.cities = response;
+            
             if (!response.status) {
                 infoMessage(response.message, 'growl-warning', 'warning');
             }
@@ -281,9 +313,9 @@ page.controller('EmpleadosCtrl', ['$scope', '$modal', '$window', 'DTOptionsBuild
 
     function save($modalScope) {
         //scope from modal
+        // alert($modalScope.empleado.tipoRh)
 
         $scope.empleados = new ResponseLm();
-        
         EmpleadosSvc.save(JSON.parse(angular.toJson($modalScope.empleado)), $modalScope.action).then(function (response) {
             $scope.empleados = response;
 

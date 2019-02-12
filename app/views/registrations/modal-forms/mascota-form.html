@@ -21,7 +21,7 @@
                     <span class="asterisk">*</span>
                 </label>
                 <div class="col-sm-9">
-                    <input type="date" class="form-control input-sm" required 
+                    <input type="text" class="form-control input-sm" id="birthDate" required 
                     ng-model="mascota.fechaNacimiento"/>
                 </div>
             </div>
@@ -118,12 +118,17 @@
                     <span class="asterisk">*</span>
                 </label>
                 <div class="col-sm-9">
-                    <select class="form-control" data-placeholder="Seleccione un estado..." class="width100p" required 
+                    <label ng-class="{'tpx-checkbox tpx-checkbox-success': mascota.vive, 'tpx-checkbox tpx-checkbox-danger': !mascota.vive}">
+                        <input type="checkbox" ng-model="mascota.vive">
+                        <span></span>
+                        {{ mascota.vive ? 'Si' : 'No'}}
+                    </label>
+                    <!-- ><select class="form-control" data-placeholder="Seleccione un estado..." class="width100p" required 
                     ng-model="mascota.vive">
                         <option value="">Seleccione una opción</option>
-                        <option value="true">Activo</option>
-                        <option value="false">Inactivo</option>
-                    </select>
+                        <option value="true">Si</option>
+                        <option value="falso">No</option>
+                    </select> -->
                 </div>
             </div>
             <!-- form-group -->
@@ -133,13 +138,18 @@
                 <label class="col-sm-3 control-label">Estado
                     <span class="asterisk">*</span>
                 </label>
-                <div class="col-sm-9">
-                    <select class="form-control" data-placeholder="Seleccione un estado..." class="width100p" required 
+                <div class="col-sm-7">
+                    <label ng-class="{'tpx-checkbox tpx-checkbox-success': mascota.estado, 'tpx-checkbox tpx-checkbox-danger': !mascota.estado}">
+                        <input type="checkbox" ng-model="mascota.estado">
+                        <span></span>
+                        {{ mascota.estado ? 'Activo' : 'Inactivo'}}
+                    </label>
+                    <!-- <select class="form-control" data-placeholder="Seleccione un estado..." class="width100p" required 
                     ng-model="mascota.estado">
                         <option value="">Seleccione una opción</option>
                         <option value="true">Activo</option>
                         <option value="false">Inactivo</option>
-                    </select>
+                    </select> -->
                 </div>
             </div>
             <!-- form-group -->

@@ -6,17 +6,6 @@
 
     <form name="frmVaccines" ng-submit="save()" novalidate="novalidate">
         <div class="row mb10">
-            <div class="col-sm-8 col-sm-offset-2">
-                <div class="form-group">
-                    <label class="col-sm-5 control-label">Código Vacuna
-                        <span class="asterisk">*</span>
-                    </label>
-                    <div class="col-sm-7">
-                        <input class="form-control input-sm" placeholder="Ingrese el código de la vacuna" required 
-                        ng-model="vacuna.idVacuna" />
-                    </div>
-                </div>
-            </div>
             <div class="col-sm-8 col-sm-offset-2">    
                 <div class="form-group">
                     <label class="col-sm-5 control-label">Nombre Vacuna
@@ -35,7 +24,7 @@
                     </label>
                     <div class="col-sm-7">
                         <textarea type="text" class="form-control input-sm" placeholder="Ingrese la descripción de la vacuna" required
-                        ng-model="vacuna.descripcionVacuna"/>
+                        ng-model="vacuna.descripcionVacuna" ng-uppercase />
                     </div>
                 </div>
                 <!-- form-group -->

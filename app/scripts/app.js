@@ -18,6 +18,7 @@ var lindasmascotas = angular.module('lindasmascotasApp', [
   'angular-flot'                 , 'colorpicker.module'       , 'ngDropzone'            ,
   'ngMorrisChart'                , 'ngSparkline'              , 'ui.select2'            ,
   'chainDirectives'              , 'inputMayus'               , 'inputOnlyNumbers'      ,
+  
 
   //Controladores
   'ConfigCountries'            , 'ConfigDepartments'      , 'ConfigCities'        ,

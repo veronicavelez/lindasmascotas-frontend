@@ -1,0 +1,5 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+.demo-template-07-contract-02-vet-es.webnode.com	TRUE	/	FALSE	1999999999	fess	e2e0ed25173bc70489524cd2f1fc6ae84abb751e
+.demo-template-07-contract-02-vet-es.webnode.com	TRUE	/	FALSE	1999999999	PHPSESSID	37ec2769ebe035f0976528e73096b4e6
+

@@ -97,8 +97,8 @@
                 "label": "Usuarios del sistema"
             },
             {
-                "state": "registrations.activitySchedules",
-                "label": "Agendar Visita"
+                "state": "registrations.citas",
+                "label": "Solicitar Cita"
             }
 
         ]

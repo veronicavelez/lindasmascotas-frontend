@@ -54,8 +54,8 @@
                                 <span class="asterisk">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control input-sm" placeholder="Ingrese los nombres" required 
-                                ng-model="empleado.nombreEmpleado" ng-uppercase/>
+                                <input type="text" class="form-control input-sm" ngOnlyLetters placeholder="Ingrese los nombres" required 
+                                ng-model="empleado.nombreEmpleado" ng-uppercase />
                             </div>
                         </div>
                         <!-- form-group -->
@@ -83,7 +83,8 @@
                                 <span class="asterisk">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <input type="date" class="form-control input-sm" ng-model="empleado.fechaNacimiento" ng-change="validarFechaNac()"/>
+                                <!-- <input type="date" class="form-control input-sm" ng-model="empleado.fechaNacimiento" ng-change="validarFechaNac()"/> -->
+                                <input type="text" class="form-control input-sm" id="birthDate" ng-model="empleado.fechaNacimiento" ng-change="validarFechaNac()"/>
                             </div>
                         </div>
                         <!-- form-group -->
@@ -129,6 +130,16 @@
                                 <span class="asterisk">*</span>
                             </label>
                             <div class="col-sm-7">
+                                <!-- <label class="tpx-radio">
+                                    <input type="radio" name="tiporh" value="+" ng-model="empleado.tipoRh">
+                                    <span></span>
+                                    Positivo(+)
+                                </label>
+                                <label class="tpx-radio">
+                                    <input type="radio" name="tiporh" value="-" ng-model="empleado.tipoRh">
+                                    <span></span>
+                                    Negativo(-)
+                                </label> -->
                                 <select class="form-control" data-placeholder="Seleccione un rh..." class="width100p" required 
                                 ng-model="empleado.tipoRh">
                                     <option value="">Seleccione un rh..</option>
@@ -325,7 +336,8 @@
                                 <span class="asterisk">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <input type="date" class="form-control input-sm" ng-model="empleado.fechaContratoInicial"/>
+                                <!-- <input type="date" class="form-control input-sm" ng-model="empleado.fechaContratoInicial"/> -->
+                                <input type="text" class="form-control input-sm" id="initDate" ng-model="empleado.fechaContratoInicial"/>
                             </div>
                         </div>
                         <!-- form-group -->
@@ -337,7 +349,8 @@
                                 <span class="asterisk">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <input type="date" class="form-control input-sm" ng-model="empleado.fechaContratoFinal"/>
+                                <!-- <input type="date" class="form-control input-sm" ng-model="empleado.fechaContratoFinal"/> -->
+                                <input type="text" class="form-control input-sm" id="finishDate" ng-model="empleado.fechaContratoFinal"/>
                             </div>
                         </div>
                         <!-- form-group -->
@@ -367,12 +380,17 @@
                                 <span class="asterisk">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <select class="form-control" data-placeholder="Seleccione un estado..." class="width100p" required 
+                                <label ng-class="{'tpx-checkbox tpx-checkbox-success': empleado.estadoEmpleado, 'tpx-checkbox tpx-checkbox-danger': !empleado.estadoEmpleado}">
+                                    <input type="checkbox" ng-model="empleado.estadoEmpleado">
+                                    <span></span>
+                                    {{ empleado.estadoEmpleado ? 'Activo' : 'Inactivo'}}
+                                </label>
+                                <!-- <select class="form-control" data-placeholder="Seleccione un estado..." class="width100p" required 
                                 ng-model="empleado.estadoEmpleado">
                                     <option value="">Seleccione una opción</option>
                                     <option value="true">Activo</option>
                                     <option value="false">Inactivo</option>
-                                </select>
+                                </select> -->
                             </div>
                         </div>
                         <!-- form-group -->

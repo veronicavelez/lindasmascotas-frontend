@@ -27,18 +27,18 @@
                 <td class="text-center">{{propietario.idPropietario}}</td>
                 <td>{{propietario.nombrePropietario}} {{propietario.apellidosPropietario}}</td>
                 <td class="text-center">
-                  <span ng-if="propietario.estado" class="label label-success">
-                      Activo
+                  <span ng-class="{'label label-success': propietario.estado, 'label label-danger': !propietario.estado}">
+                    {{propietario.estado ? 'Activo' : 'Inactivo'}}
                   </span>
-                  <span ng-if="!propietario.estado" class="label label-danger">
+                  <!-- <span ng-if="!propietario.estado" class="label label-danger">
                       Inactivo
-                  </span>
+                  </span> -->
                 </td>
                 <td class="table-action text-center">
                   <button class="btn btn-warning btn-metro btn-xs" ng-click="open('lg','static', 'edit', propietario)">
                     <i class="fa fa-pencil"></i> Editar</button>
-                  <button class="btn btn-primary btn-metro btn-xs" ng-click="open('lg','static', 'detalle', propietario)">
-                    <i class=""></i> Detalles</button>
+                  <!-- <button class="btn btn-primary btn-metro btn-xs" ng-click="open('lg','static', 'detalle', propietario)">
+                    <i class=""></i> Detalles</button> -->
                 </td>
               </tr>
             </tbody>

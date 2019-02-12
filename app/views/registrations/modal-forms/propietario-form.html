@@ -54,7 +54,7 @@
                             </label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control input-sm" placeholder="Ingrese los nombres" required 
-                                ng-model="propietario.nombrePropietario" ng-uppercase/>
+                                ng-model="propietario.nombrePropietario" ng-uppercase />
                             </div>
                         </div>
                         <!-- form-group -->
@@ -82,7 +82,7 @@
                                 <span class="asterisk">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <input type="date" class="form-control input-sm" ng-model="propietario.fechaNacimiento"/>
+                                <input type="text" class="form-control input-sm" id="birthDate" ng-model="propietario.fechaNacimiento"/>
                             </div>
                         </div>
                         <!-- form-group -->
@@ -239,12 +239,17 @@
                                 <span class="asterisk">*</span>
                             </label>
                             <div class="col-sm-7">
-                                <select class="form-control" data-placeholder="Seleccione un estado..." class="width100p" required 
+                                <label ng-class="{'tpx-checkbox tpx-checkbox-success': propietario.estado, 'tpx-checkbox tpx-checkbox-danger': !propietario.estado}">
+                                    <input type="checkbox" ng-model="propietario.estado">
+                                    <span></span>
+                                    {{ propietario.estado ? 'Activo' : 'Inactivo'}}
+                                </label>
+                                <!-- <select class="form-control" data-placeholder="Seleccione un estado..." class="width100p" required 
                                 ng-model="propietario.estado">
                                     <option value="">Seleccione una opción</option>
                                     <option value="true">Activo</option>
                                     <option value="false">Inactivo</option>
-                                </select>
+                                </select> -->
                             </div>
                         </div>
                         <!-- form-group -->

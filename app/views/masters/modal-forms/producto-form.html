@@ -3,7 +3,6 @@
     <h4 class="modal-title" id="productsModalForm">{{modalTittle}} de Producto</h4>
 </div>
 <div class="modal-body">
-
     <form name="frmProducts" ng-submit="save()" novalidate="novalidate">
         <div class="row mb10">
             <div class="col-sm-8 col-sm-offset-2">
@@ -11,7 +10,10 @@
                     <label class="col-sm-5 control-label">Código Producto
                         <span class="asterisk">*</span>
                     </label>
-                    <div class="col-sm-7">
+                    <div ng-if="!esNuevo">
+                        {{producto.idProducto}}
+                    </div>
+                    <div class="col-sm-7" ng-if="esNuevo">
                         <input class="form-control input-sm" placeholder="Ingrese el código del producto" required 
                         ng-model="producto.idProducto" />
                     </div>
@@ -22,20 +24,12 @@
                     <label class="col-sm-5 control-label">Nombre Producto
                         <span class="asterisk">*</span>
                     </label>
-                    <div class="col-sm-7">
+                    <div ng-if="esDetalle">
+                        {{producto.nombreProducto}}
+                    </div>
+                    <div class="col-sm-7" ng-if="!esDetalle">
                         <input type="text" class="form-control input-sm" placeholder="Ingrese el nombre del producto" required 
                         ng-model="producto.nombreProducto" ng-uppercase/>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8 col-sm-offset-2">
-                <div class="form-group">
-                    <label class="col-sm-5 control-label">Descripción Producto
-                        <span class="asterisk">*</span>
-                    </label>
-                    <div class="col-sm-7">
-                        <textarea type="text" class="form-control input-sm" placeholder="Ingrese la descripción del producto" required
-                        ng-model="producto.descripcionProducto"/>
                     </div>
                 </div>
             </div>
@@ -44,7 +38,10 @@
                     <label class="col-sm-5 control-label">Marca Producto
                         <span class="asterisk">*</span>
                     </label>
-                    <div class="col-sm-7">
+                    <div ng-if="esDetalle">
+                        {{producto.marca}}
+                    </div>
+                    <div class="col-sm-7" ng-if="!esDetalle">
                         <input  class="form-control input-sm" placeholder="Ingrese la marca del producto" required 
                         ng-model="producto.marca"  ng-uppercase />
                     </div>
@@ -55,9 +52,26 @@
                     <label class="col-sm-5 control-label">Precio Producto
                         <span class="asterisk">*</span>
                     </label>
-                    <div class="col-sm-7">
+                    <div ng-if="esDetalle">
+                        {{producto.precio}}
+                    </div>
+                    <div class="col-sm-7" ng-if="!esDetalle">
                         <input  class="form-control input-sm" placeholder="Ingrese el precio del producto" required 
                         ng-model="producto.precio" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="form-group">
+                    <label class="col-sm-5 control-label">Descripción Producto
+                        <span class="asterisk" >*</span>
+                    </label>
+                    <div ng-if="esDetalle">
+                        {{producto.descripcionProducto}}
+                    </div>
+                    <div class="col-sm-7" ng-if="!esDetalle">
+                        <textarea type="text" class="form-control input-sm" placeholder="Ingrese la descripción del producto" required
+                        ng-model="producto.descripcionProducto" ng-uppercase></textarea>
                     </div>
                 </div>
             </div>
@@ -66,8 +80,9 @@
 
         <div class="row">
             <div class="col-sm-offset-4">
-                <button type="submit" class="btn btn-success btn-metro btn-xs mr5"><i class="fa fa-save"></i> Guardar</button>
-                <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()"><i class="fa fa-eraser"></i> Limpiar</button>
+                <button type="submit" class="btn btn-success btn-xs"  ng-if="!esDetalle">Guardar</button>
+                <button type="reset" class="btn btn-dark btn-metro btn-xs" ng-click="clean()" ng-if="!esDetalle"><i class="fa fa-eraser"></i> Limpiar</button>
+                <button type="reset" class="btn btn-default btn-xs" ng-click="cancel()" ng-if="!esDetalle">Cancelar</button>
             </div>
         </div>
     </form>

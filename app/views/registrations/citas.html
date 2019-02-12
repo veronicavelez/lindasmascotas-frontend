@@ -3,100 +3,14 @@
 <div class="contentpanel">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <chain-panel title="Agendar Visita" description="Agendamiento de visitas para auditores.">
+      <chain-panel title="Solicitar Cita" description="Solicitud de citas.">
         <!-- <button class="btn btn-primary btn-metro btn-xs mr5 mb20" ng-click="open('','static', 'create')">
           <i class="fa fa-calendar"></i> Nueva visita</button> -->
 
-        <div class="loaders text-center mb20" ng-hide="schedules.status">
+        <!-- <div class="loaders text-center mb20" ng-hide="schedules.status">
           <img alt src="images/loaders/loader15.gif">
-        </div>
-
-        <div class="col-lg-5">
-          <div class="row mb20">
-            <form name="frmSchedule" ng-submit="saveSchedule(frmSchedule)" novalidate="novalidate">
-              <div class="row">
-                <div class="form-group">
-                  <label class="col-sm-2 col-md-2 col-lg-2 control-label">Tienda
-                    <span class="asterisk">*</span>
-                  </label>
-                  <div class="col-sm-10 col-md-10 col-lg-10">
-                    <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione una tienda..." class="width100p" required 
-                    ng-model="schedule.posTienda.posTienda">
-                      <option value=""></option>
-                      <option ng-repeat="store in stores.data" value="{{store.posTienda}}">{{store.nombreTienda}}</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="form-group">
-                  <label class="col-sm-2 col-md-2 col-lg-2 control-label">Auditor
-                    <span class="asterisk">*</span>
-                  </label>
-                  <div class="col-sm-10 col-md-10 col-lg-10">
-                    <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un auditor..." class="width100p" required 
-                    ng-model="schedule.idAuditor.idPersonal">
-                      <option value=""></option>
-                      <option ng-repeat="aud in auditors.data" value="{{aud.idPersonal}}">{{aud.nombres}} {{aud.papellido}} {{aud.sapellido}}</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="form-group">
-                  <label class="col-sm-2 col-md-2 col-lg-2 control-label">Día
-                    <span class="asterisk">*</span>
-                  </label>
-                  <div class="col-sm-5 col-md-5 col-lg-5">
-                    <input type="text" class="form-control input-sm" placeholder="dd/mm/yyyy" required ng-model="schedule.fechaVisita" id="datePickSchSince">
-                  </div>
-                </div>
-                <!-- form-group -->
-              </div>
-
-              <div class="row">
-                <div class="text-center">
-                  <button type="submit" class="btn btn-success btn-metro btn-xs mr5">
-                    <i class="fa fa-calendar"></i> Agendar</button>
-
-                  <!-- <button class="btn btn-danger btn-metro btn-xs mr5" ng-click="delete('sm','static',company)">
-                        <i class="fa fa-times"></i> Cancelar</button> -->
-
-                  <button type="button" class="btn btn-dark btn-metro btn-xs" ng-click="clean(frmSchedule)">
-                    <i class="fa fa-eraser"></i> Limpiar</button>
-                </div>
-              </div>
-            </form>
-          </div>
-
-          <div class="row">
-            <div class="table-responsive">
-              <div class="loaders text-center" ng-hide="storeWithoutVisits.status">
-                <img alt src="images/loaders/loader15.gif">
-              </div>
-              <h6 ng-show="storeWithoutVisits.data.length > 0">Tiendas pendientes por agendar visita.</h6>
-              <table class="table table-custom" ng-show="storeWithoutVisits.data.length > 0">
-                <thead>
-                  <tr>
-                    <th class="col-xs-6 col-sm-3 col-md-3 col-lg-3">Tienda</th>
-                    <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Agendadas</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="store in storeWithoutVisits.data">
-                    <td>{{store.tiendas.nombreTienda}}</td>
-                    <td class="text-center">{{store.programadas}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- table-responsive -->
-          </div>
-        </div>
-
-        <div class="col-lg-7">
+        </div> -->
+        <div class="col-lg-10">
           <div ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="scheduleCalendar"></div>
         </div>
 

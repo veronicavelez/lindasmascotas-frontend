@@ -19,22 +19,22 @@
                 <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Id</th>
                 <th class="col-xs-5 col-sm-1 col-md-1 col-lg-1">Nombre</th>
                 <th class="col-xs-5 col-sm-2 col-md-2 col-lg-2">Propietario</th>
-                <th class="col-xs-5 col-sm-1 col-md-1 col-lg-1">Estado</th>
+                <th class="col-xs-5 col-sm-1 col-md-1 col-lg-1 text-center">Estado</th>
                 <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="mascota in mascotas.data">
-                  <td class="text-center">{{mascota.idMascota}}</td>
-                  <td>{{mascota.nombreMascota}}</td>
-                  <td>{{mascota.idPropietario.nombrePropietario}} {{mascota.idPropietario.apellidosPropietario}}</td>
+                <td class="text-center">{{mascota.idMascota}}</td>
+                <td>{{mascota.nombreMascota}}</td>
+                <td>{{mascota.idPropietario.nombrePropietario}} {{mascota.idPropietario.apellidosPropietario}}</td>
                 <td class="text-center">
-                  <span ng-if="mascota.estado" class="label label-success">
-                      Activo
+                  <span ng-class="{'label label-success': mascota.estado, 'label label-danger': !mascota.estado}">
+                      {{mascota.estado ? 'Activo' : 'Inactivo'}}
                   </span>
-                  <span ng-if="!mascota.estado" class="label label-danger">
+                  <!-- <span ng-if="!mascota.estado" class="label label-danger">
                       Inactivo
-                  </span>
+                  </span> -->
                 </td>
                 <td class="table-action text-center">
                   <button class="btn btn-warning btn-metro btn-xs" ng-click="open('lg','static', 'edit', mascota)">

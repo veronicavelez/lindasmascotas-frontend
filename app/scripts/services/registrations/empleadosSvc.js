@@ -48,6 +48,7 @@ service.factory('EmpleadosSvc', ['$http','$q','$sce','BarriosSvc','GenerosSvc','
                     });
 
             } else {
+                //alert(empleado.tipoRh)
                 $http.put($sce.trustAsResourceUrl(self.url), JSON.stringify(empleado))
                     .then(function (response) {
 

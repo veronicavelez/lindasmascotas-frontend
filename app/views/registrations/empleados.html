@@ -19,7 +19,7 @@
                 <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Identificación</th>
                 <th class="col-xs-5 col-sm-2 col-md-2 col-lg-2">Nombres</th>
                 <th class="col-xs-5 col-sm-1 col-md-1 col-lg-1">Ocupación</th>
-                <th class="col-xs-5 col-sm-1 col-md-1 col-lg-1">Estado</th>
+                <th class="col-xs-5 col-sm-1 col-md-1 col-lg-1 text-center">Estado</th>
                 <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Acciones</th>
               </tr>
             </thead>
@@ -29,18 +29,18 @@
                 <td>{{empleado.nombreEmpleado}} {{empleado.apellidosEmpleado}}</td>
                 <td>{{empleado.idCargo.nombreCargo}}</td>
                 <td class="text-center">
-                  <span ng-if="empleado.estadoEmpleado" class="label label-success">
-                      Activo
+                  <span ng-class="{'label label-success': empleado.estadoEmpleado, 'label label-danger': !empleado.estadoEmpleado}">
+                    {{empleado.estadoEmpleado ? 'Activo' : 'Inactivo'}}
                   </span>
-                  <span ng-if="!empleado.estadoEmpleado" class="label label-danger">
+                  <!-- <span ng-if="!empleado.estadoEmpleado" class="label label-danger">
                       Inactivo
-                  </span>
+                  </span> -->
                 </td>
                 <td class="table-action text-center">
                   <button class="btn btn-warning btn-metro btn-xs" ng-click="open('lg','static', 'edit', empleado)">
                     <i class="fa fa-pencil"></i> Editar</button>
-                  <button class="btn btn-primary btn-metro btn-xs" ng-click="open('lg','static', 'detalle', empleado)">
-                    <i class=""></i> Detalles</button>
+                  <!-- <button class="btn btn-primary btn-metro btn-xs" ng-click="open('lg','static', 'detalle', empleado)">
+                    <i class=""></i> Detalles</button> -->
                 </td>
               </tr>
             </tbody>

@@ -10,10 +10,10 @@
 
 var service = angular.module('CitasSvc', []);
 
-service.factory('CitasSvc', ['$http','$q','$sce',  function($http, $q, $sce,){
+service.factory('CitasSvc', ['$http','$q','$sce','ServiciosSvc',  function($http, $q, $sce, ServiciosSvc){
     
     var self = {
-        url: 'http://localhost:8084/ModyMarcaBusinness/rest/schedules',
+        url: 'http://localhost:8084/LindasMascotas/rest/citas',
 
         getSchedules: function () {
             var d = $q.defer();
@@ -30,10 +30,10 @@ service.factory('CitasSvc', ['$http','$q','$sce',  function($http, $q, $sce,){
             return d.promise;
         },
 
-        getStoreWithoutVisits: function(){
+        getPropietario: function(idPropietario){
             var d = $q.defer();
             
-            $http.get($sce.trustAsResourceUrl(self.url + '/getStoreWithoutVisits'))
+            $http.get($sce.trustAsResourceUrl(self.url + '/propietario?idPropietario=' + idPropietario))
                 .then(function (response) {
 
                     return d.resolve(response.data);
@@ -45,23 +45,22 @@ service.factory('CitasSvc', ['$http','$q','$sce',  function($http, $q, $sce,){
             return d.promise;
         },
 
-        save: function (schedule, accion) {
+        save: function (citas,accion) {
             var d = $q.defer();
 
-            if (accion === 'create') {
-                schedule.idCronograma = null;
-                
-                $http.post($sce.trustAsResourceUrl(self.url), JSON.stringify(schedule))
+            if (accion === 'crear') {
+                $http.post($sce.trustAsResourceUrl(self.url), JSON.stringify(citas))
                     .then(function (response) {
 
-                        return d.resolve(response.data);
+                       return d.resolve(response.data);
+
                     })
                     .catch(function (response) {
                         d.reject();
                     });
 
             } else {
-                $http.put($sce.trustAsResourceUrl(self.url), JSON.stringify(schedule))
+                $http.put($sce.trustAsResourceUrl(self.url), JSON.stringify(citas))
                     .then(function (response) {
 
                         return d.resolve(response.data);
@@ -73,6 +72,7 @@ service.factory('CitasSvc', ['$http','$q','$sce',  function($http, $q, $sce,){
 
             return d.promise;
         },
+
 
         delete: function (id) {
             var d = $q.defer();
@@ -88,45 +88,33 @@ service.factory('CitasSvc', ['$http','$q','$sce',  function($http, $q, $sce,){
             return d.promise;
         },
 
-        getAllAuditorsByCity: function(cityId) {
+        horarioEmpleado: function (idEmpleado, fechaCita) {
             var d = $q.defer();
 
-            // UsersSvc.getUsersByCity(cityId)
-            // .then(function(response){
-            //     let responseAux = response;
-            //     let users = new ResponseLm();
-
-            //     users.status = responseAux.status;
-            //     users.message = responseAux.message;
-
-            //     responseAux.data.forEach(el => {
-            //         if (el.idCargo.nombreCargo.toLowerCase().indexOf('auditor(a)') > -1){
-            //             users.data.push(el);
-            //         }
-            //     });
-                
-            //     return d.resolve(users);
-            // })
-            // .catch(function(response){
-            //     d.reject();
-            // });
+            $http.get($sce.trustAsResourceUrl(self.url + '/horarioemple?idEmpleado=' + idEmpleado + "&fechaCita=" + fechaCita))
+                .then(function (response) {
+                    return d.resolve(response.data);
+                })
+                .catch(function (response) {
+                    d.reject();
+                });
 
             return d.promise;
         },
 
-        getStoresForSchedules: function(){
+        getServices: function(){
             var d = $q.defer();
 
-            // StoresSvc.getStoresForSchedules()
-            // .then(function(response){
-            //     return d.resolve(response);
-            // })
-            // .catch(function(response){
-            //     d.reject();
-            // });
+            ServiciosSvc.getServices()
+            .then(function(response){
+                return d.resolve(response);
+            })
+            .catch(function(response){
+                d.reject();
+            });
 
-            return d.promise;
-        }
+            return d.promise; 
+        },
     };
 
     return self;

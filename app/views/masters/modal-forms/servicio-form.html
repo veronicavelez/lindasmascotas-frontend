@@ -8,17 +8,6 @@
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
                 <div class="form-group">
-                    <label class="col-sm-5 control-label">Código Servicio
-                        <span class="asterisk">*</span>
-                    </label>
-                    <div class="col-sm-7">
-                        <input class="form-control input-sm" placeholder="Ingrese el código del servicio" required 
-                        ng-model="servicio.idServicio" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8 col-sm-offset-2">
-                <div class="form-group">
                     <label class="col-sm-5 control-label">Nombre Servicio
                         <span class="asterisk">*</span>
                     </label>
@@ -35,7 +24,7 @@
                     </label>
                     <div class="col-sm-7">
                         <input  class="form-control input-sm" placeholder="Ingrese el precio del servicio" required 
-                        ng-model="servicio.precioServicio " />
+                        ng-model="servicio.precioServicio" ng-only-numbers />
                     </div>
                 </div>
                 <!-- form-group -->
@@ -47,7 +36,7 @@
                     </label>
                     <div class="col-sm-7">
                         <textarea type="text" class="form-control input-sm" placeholder="Ingrese la descripción del servicio" required
-                        ng-model="servicio.descripcionServicio" />
+                        ng-model="servicio.descripcionServicio" ng-uppercase/>
                     </div>
                 </div>
             </div>
@@ -82,8 +71,8 @@
                             </button>
                         </td>
                     </tr>
-                    <tr ng-repeat="emp in servicio.empleadosList">
-                      <td>{{emp.nombreEmpleado}} {{emp.apellidosEmpleado}}</td>
+                    <tr ng-repeat="emp in servicio.servicioPorEmpleadoList">
+                      <td>{{emp.idEmpleado.nombreEmpleado}} {{emp.idEmpleado.apellidosEmpleado}}</td>
                       <td class="table-action text-center">
                         <button class="btn btn-danger btn-metro btn-xs" ng-click="eliminar($index)">
                           <i class="fa fa-trash-o"></i> Eliminar</button>

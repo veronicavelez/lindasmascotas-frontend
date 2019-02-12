@@ -1,41 +1,149 @@
 <div class="modal-header">
-    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>
     <h4 class="modal-title" id="scheduleModalForm">{{event.title}}</h4>
 </div>
-
 <div class="modal-body">
-    <div class="form-group">
-        <label class="col-sm-3 col-md-3 col-lg-3 control-label">
-            <strong>Auditor:</strong>
-        </label>
-        <label class="col-sm-9 col-md-9 col-lg-9 control-label">{{event.auditor}}</label>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 col-md-3 col-lg-3 control-label">
-            <strong>Día:</strong>
-        </label>
-        <label class="col-sm-9 col-md-9 col-lg-9 control-label">{{event.dateDay}}</label>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 col-md-3 col-lg-3 control-label">
-            <strong>Descripción:</strong>
-        </label>
-        <label class="col-sm-9 col-md-9 col-lg-9 control-label">{{event.description}}</label>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-3 col-md-3 col-lg-3 control-label">
-            <strong>Estado visita:</strong>
-        </label>
-        <label class="col-sm-9 col-md-9 col-lg-9 control-label">{{event.status}}</label>
-    </div>
+    <form name="frmSchedule" ng-submit="save()" novalidate="novalidate">
+        <div class="row">
+
+            <div class="form-group" ng-if="propietario == null">
+                <label class="col-sm-4 col-md-3 col-lg-3 control-label">Buscar Propietario
+                    <span class="asterisk">*</span>
+                </label>
+                <div class="col-sm-5 col-md-5 col-lg-5">
+                    <input type="text" class="form-control input-sm" value="1023645404" ng-only-numbers ng-model="citas.idPropietario.idPropietario">
+                </div>
+                <div class="col-sm-5 col-md-1 col-lg-1">
+                    <button class="btn btn-default btn-sm" ng-click="buscarPropietario()">
+                        <i class="fa fa-search"></i> Buscar
+                    </button>
+                </div>
+            </div>
+            <div class="panel-group" id="accordion" ng-if="propietario !== null">
+                <div class="panel panel-default">
+                    <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                {{propietario.nombrePropietario}} {{propietario.apellidosPropietario}}
+                            </h4>
+                        </div>
+                    </a>
+                    <div id="collapseOne" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="form-group col-lg-6">
+                                    <label class="col-sm-2 col-md-2 col-lg-4 control-label">
+                                        <strong>Teléfono:</strong>
+                                    </label>
+                                    <label class="col-sm-10 col-md-10 col-lg-8 control-label">
+                                        {{propietario.telefonoFijo}}
+                                    </label>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label class="col-sm-2 col-md-2 col-lg-4 control-label">
+                                        <strong>Celular:</strong>
+                                    </label>
+                                    <label class="col-sm-10 col-md-10 col-lg-8 control-label">
+                                        {{propietario.telefonoMovil}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- panel -->
+            </div>
+            <!-- panel-group -->
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-4 col-md-3 col-lg-3 control-label">Nombre Mascota
+                    <span class="asterisk">*</span>
+                </label>
+                <div ng-if="detail">
+                    {{citas.nombreMascota}}
+                </div>
+                <div class="col-sm-5 col-md-5 col-lg-5" ng-if="propietario == null">
+                    <input type="text" class="form-control input-sm" placeholder="" ng-model="citas.nombreMascota" list="mascotas" ng-uppercase>
+                    <datalist id="mascotas">
+                        <option ng-repeat="m in propietario.mascotasList">{{m.nombreMascota}}</option>
+                    </datalist>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-4 col-md-3 col-lg-3 control-label">Servicio
+                    <span class="asterisk">*</span>
+                </label>
+                <div ng-if="propietario !== null">
+                    {{citas.idTipoServicio.nombreServicio}}
+                </div>
+                <div class="col-sm-5 col-md-5 col-lg-5" ng-if="propietario == null">
+                    <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un servicio..." class="width100p" required ng-model="citas.idTipoServicio.idServicio" ng-change="servicioPorEmpleado()">
+                        <option value=""></option>
+                        <option ng-repeat="servicio in servicios.data" value="{{servicio.idServicio}}" >{{servicio.nombreServicio}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="form-group">
+                    <label class="col-sm-4 col-md-3 col-lg-3 control-label">Funcionario
+                        <span class="asterisk">*</span>
+                    </label>
+                    <div ng-if="propietario !== null">
+                        {{citas.idEmpleado.nombreEmpleado}} {{citas.idEmpleado.apellidosEmpleado}}
+                    </div>
+                    <div class="col-sm-5 col-md-5 col-lg-5" ng-if="propietario == null">
+                        <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione un Funcionario..." class="width100p" required ng-model="citas.idEmpleado.idEmpleado" ng-change="consultarHorarioEmpleado()">
+                            <option value=""></option>
+                            <option ng-repeat="empl in empleados" value="{{empl.idEmpleado}}">{{empl.nombreEmpleado}} {{empl.apellidosEmpleado}} </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-4 col-md-3 col-lg-3 control-label">Hora
+                    <span class="asterisk">*</span>
+                </label>
+                <div ng-if="propietario !== null">
+                    {{citas.fechaCita}}
+                </div>
+                
+                <div class="col-sm-5 col-md-5 col-lg-5" ng-if="propietario == null">
+                    <select ui-select2="{ allowClear: true }" data-placeholder="Seleccione una hora..." class="width100p" required ng-model="emp.hora">
+                        <option value=""></option>
+                        <option ng-repeat="hora in horas" value="{{hora}}">{{hora}}</option>
+                    </select>
+                </div>
+            </div>
+            <!-- form-group -->
+        </div>
+
+        <div class="row">
+            <div class="text-center">
+                <button type="submit" class="btn btn-success btn-metro btn-xs mr5" ng-if="!esDetalle">
+                    <i class="fa fa-calendar"></i> Agendar</button>
+
+                <!-- <button class="btn btn-danger btn-metro btn-xs mr5" ng-click="delete('sm','static',company)">
+                <i class="fa fa-times"></i> Cancelar</button> -->
+
+                <button type="button" class="btn btn-dark btn-metro btn-xs" ng-click="clean(frmSchedule)" ng-if="!esDetalle">
+                    <i class="fa fa-eraser"></i> Limpiar</button>
+            </div>
+        </div>
+    </form>
 </div>
-<!-- modal-body -->
 <div class="modal-footer">
     <button class="btn btn-warning btn-metro btn-xs mr5" ng-if="canEdit" ng-click="edit()">
-            <i class="fa fa-pencil"></i> Editar Visita</button>
+        <i class="fa fa-pencil"></i> Editar Cita</button>
 
     <button class="btn btn-danger btn-metro btn-xs mr5" ng-if="canCancel" ng-click="cancel()">
-        <i class="fa fa-times"></i> Cancelar Visita</button>
+        <i class="fa fa-times"></i> Cancelar Cita</button>
 
     <button class="btn btn-default btn-metro btn-xs" ng-click="close()">Cerrar</button>
 </div>

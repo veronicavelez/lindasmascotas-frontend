@@ -51,6 +51,16 @@ page.controller('MascotasCtrl', ['$scope', '$modal', '$window', 'DTOptionsBuilde
                 $scope.action = action;
                 $scope.mascota = new Mascota();
 
+                setTimeout(() => {
+                    let datePickerBirthDate = angular.element('#birthDate');
+                    
+                    datePickerBirthDate.datepicker({
+                        changeMonth: true,
+                        changeYear: true
+                    });
+
+                }, 500);
+
                 if (action === 'create') {
                     $scope.modalTittle = 'Registro';
                 } else if (action === 'edit') {
@@ -58,11 +68,16 @@ page.controller('MascotasCtrl', ['$scope', '$modal', '$window', 'DTOptionsBuilde
                     $scope.modalTittle = 'Edición';
 
                     if (angular.isObject(editMascota)) {
+                        editMascota.fechaNacimiento = dateFormat.ToString(editMascota.fechaNacimiento,false);
+                        console.log(editMascota)
                         angular.copy(editMascota, $scope.mascota);
                     }
                 }
 
                 $scope.save = function () {
+
+                    $scope.mascota.fechaNacimiento = dateFormat.ToDate($scope.mascota.fechaNacimiento,false);
+
                     save($scope);
                 };
 
@@ -106,7 +121,7 @@ page.controller('MascotasCtrl', ['$scope', '$modal', '$window', 'DTOptionsBuilde
             $scope.mascotas = response;
 
             if (!response.status) {
-                $scope.mascotas.status = true;
+                $scope.mascotas.status = true;                
                 infoMessage(response.message, 'growl-warning', 'warning');
             }
 
@@ -167,7 +182,7 @@ page.controller('MascotasCtrl', ['$scope', '$modal', '$window', 'DTOptionsBuilde
         //scope from modal
 
         $scope.mascotas = new ResponseLm();
-        
+        console.log(JSON.parse(angular.toJson($modalScope.mascota)))
         MascotasSvc.save(JSON.parse(angular.toJson($modalScope.mascota)), $modalScope.action).then(function (response) {
             $scope.mascotas = response;
 

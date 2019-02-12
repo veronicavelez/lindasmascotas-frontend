@@ -29,7 +29,7 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
   // Page header info (views/layouts/pageheader.html)
   $window.scrollTo(0,0);
   $scope.pageicon = 'fa fa-cogs';
-  $scope.pagetitle = 'Generos';
+  $scope.pagetitle = 'Perfiles';
   $scope.parentpages = [{'url': 'masters','pagetitle': 'Configuraciones'}];
 
   $scope.perfiles = new ResponseLm();
@@ -75,7 +75,7 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
     });
   };
 
-  $scope.delete = function (size, backdrop, delGenero) {
+  $scope.delete = function (size, backdrop, delPerfil) {
     backdrop = backdrop ? backdrop : true;
     var modalInstance = $modal.open({
       templateUrl: 'views/shared/confirm-delete.html',
@@ -83,13 +83,13 @@ page.controller('PerfilesCtrl', ['$scope','$modal','$window','DTOptionsBuilder',
       backdrop: backdrop,
       controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
 
-        if (angular.isObject(delGenero)) {
+        if (angular.isObject(delPerfil)) {
           $scope.message = 'Está seguro de que desea eliminar el perfil';
-          $scope.description = delGenero.nombreGenero;
+          $scope.description = delPerfil.nombrePerfil;
         }
 
         $scope.ok = function () {
-          confirmDelete($scope, delGenero.idGenero);
+          confirmDelete($scope, delPerfil.idPerfil);
         };
 
         $scope.cancel = function () {

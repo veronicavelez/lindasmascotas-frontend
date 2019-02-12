@@ -82,10 +82,10 @@ page.controller('ServiciosCtrl', ['$scope','$modal','$window','DTOptionsBuilder'
           empleado = empleados.find(e => e.idEmpleado == $scope.empleado.idEmpleado);
 
           if(empleado !== undefined){
-            let existe = $scope.servicio.empleadosList.find(e => e.idEmpleado == empleado.idEmpleado);
+            let existe = $scope.servicio.servicioPorEmpleadoList.find(e => e.idEmpleado == empleado.idEmpleado);
 
             if(existe === undefined){
-              $scope.servicio.empleadosList.push(empleado);
+              $scope.servicio.servicioPorEmpleadoList.push({idEmpleado: empleado, idServicio: null});
               $scope.empleado = new Empleado();
             }else{
               infoMessage('No puede agregar el empleado más de una vez!.', 'growl-info', 'info');
@@ -94,7 +94,7 @@ page.controller('ServiciosCtrl', ['$scope','$modal','$window','DTOptionsBuilder'
         };
 
         $scope.eliminar = function (index){
-          $scope.servicio.empleadosList.splice(index,1);
+          $scope.servicio.servicioPorEmpleadoList.splice(index,1);
         }
       }]
     });
@@ -142,6 +142,7 @@ page.controller('ServiciosCtrl', ['$scope','$modal','$window','DTOptionsBuilder'
   function loadAllServices (){
     ServiciosSvc.getServices().then(function(response){
       $scope.servicios = response;
+      console.log(response.data)
 
       if (!response.status) {
         infoMessage(response.message, 'growl-warning', 'warning');
@@ -158,7 +159,7 @@ page.controller('ServiciosCtrl', ['$scope','$modal','$window','DTOptionsBuilder'
     
     $scope.servicios = new ResponseLm();
 
-    ServiciosSvc.save($modalScope.servicio, $modalScope.action).then(function(response){
+    ServiciosSvc.save(JSON.parse(angular.toJson($modalScope.servicio)), $modalScope.action).then(function(response){
       $scope.servicios = response;
 
       if (!response.status) {

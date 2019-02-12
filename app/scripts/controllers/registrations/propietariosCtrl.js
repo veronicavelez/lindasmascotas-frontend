@@ -51,6 +51,17 @@ page.controller('PropietariosCtrl', ['$scope', '$modal', '$window', 'DTOptionsBu
                 $scope.action = action;
                 $scope.propietario = new Propietario();
 
+                setTimeout(() => {
+                    let datePickerBirthDate = angular.element('#birthDate');
+                    
+                    datePickerBirthDate.datepicker({
+                        changeMonth: true,
+                        changeYear: true
+                    });
+
+                }, 500);
+
+
                 if (action === 'create') {
                     $scope.modalTittle = 'Registro';
                 } else if (action === 'edit') {
@@ -58,6 +69,8 @@ page.controller('PropietariosCtrl', ['$scope', '$modal', '$window', 'DTOptionsBu
                     $scope.modalTittle = 'Edición';
 
                     if (angular.isObject(editPropietario)) {
+                        editPropietario.fechaNacimiento = dateFormat.ToString(editPropietario.fechaNacimiento,false);
+
                         angular.copy(editPropietario, $scope.propietario);
                         getDepartmentsByCounty($scope);
                         getCitiesByDepartments($scope);
@@ -65,6 +78,9 @@ page.controller('PropietariosCtrl', ['$scope', '$modal', '$window', 'DTOptionsBu
                 }
 
                 $scope.save = function () {
+
+                    $scope.propietario.fechaNacimiento = dateFormat.ToDate($scope.propietario.fechaNacimiento,false);
+
                     save($scope);
                 };
 

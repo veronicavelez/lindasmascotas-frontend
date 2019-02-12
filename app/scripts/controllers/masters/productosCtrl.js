@@ -49,11 +49,26 @@ page.controller('ProductosCtrl', ['$scope','$modal','$window','DTOptionsBuilder'
       controller: ['$scope', '$modalInstance', function($scope, $modalInstance){
         $scope.action = action;
         $scope.producto = new Producto();
+        $scope.edit = false;
+        $scope.esNuevo = true;
+        $scope.esDetalle = false;
 
         if (action === 'create') {
           $scope.modalTittle = 'Registro';
+          $scope.esDetalle = false;
         } else if (action === 'edit') {
+          $scope.esNuevo = false;
+          $scope.esDetalle = false;
+          $scope.editar = true;
           $scope.modalTittle = 'Edición';
+
+          if (angular.isObject(editProducto)) {
+            angular.copy(editProducto, $scope.producto);
+          }
+        } else if (action === 'detail') {
+          $scope.esNuevo = false;
+          $scope.esDetalle = true;
+          $scope.modalTittle = 'Detalle';
 
           if (angular.isObject(editProducto)) {
             angular.copy(editProducto, $scope.producto);
@@ -62,6 +77,10 @@ page.controller('ProductosCtrl', ['$scope','$modal','$window','DTOptionsBuilder'
 
         $scope.save = function () {
           save($scope);
+        }
+
+        $scope.aEditar = function (){
+          $scope.esDetalle = false;
         }
 
         $scope.clean = function () {

@@ -13,14 +13,13 @@
                     </label>
                     <div class="col-sm-7">
                         <input type="text" class="form-control input-sm" placeholder="Ingrese el tipo de documento" required 
-                        ng-model="docType.nombreTipo" />
+                        ng-model="docType.nombreTipo" ng-uppercase />
                     </div>
                 </div>
                 <!-- form-group -->
             </div>    
         </div>
         <!-- row -->
-
         <div class="row">
             <div class="col-sm-offset-4">
                 <button type="submit" class="btn btn-success btn-metro btn-xs mr5"><i class="fa fa-save"></i> Guardar</button>
@@ -28,7 +27,6 @@
             </div>
         </div>
     </form>
-
 </div>
 <!-- modal-body -->
 <div class="modal-footer">
